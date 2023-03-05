@@ -1,0 +1,69 @@
+.addProduct {
+  padding: 1em;
+  position: relative;
+}
+
+.addProduct__form {
+  padding: 0 2em;
+}
+
+.MuiInputLabel-root {
+  margin: 1.4em 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.MuiTextField-root {
+  border: red !important;
+  /* padding: 4rem; */
+  /* background-color: red; */
+}
+
+.snackbar > .MuiSnackbar-anchorOriginTopRight {
+  position: fixed !important;
+  top: 0px;
+  right: 0px;
+}
+
+.addProduct__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addProduct__form {
+  background-color: #fff;
+  margin-top: 2rem;
+  /* box-shadow: -1px -1px 20px 0px rgba(0, 0, 0, 0.5); */
+}
+
+.product__images {
+  padding: 2.4rem;
+  margin: 1.4em 0;
+  width: 100%;
+  border: 1px dashed blue !important;
+  display: flex;
+  align-items: center;
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+}
+
+.product__images > .MuiInputLabel-root {
+  margin-left: 1.6em;
+  margin-right: auto;
+  font-size: 1.6em;
+  cursor: pointer;
+}
+
+.product__images > .MuiInputLabel-root span {
+  font-size: 0.5em;
+  margin-left: 0.5em;
+  margin-top: 1em;
+  align-items: center;
+  display: flex;
+}
+
+.product__images > .MuiSvgIcon-root {
+  font-size: 6rem;
+  margin-left: auto;
+}

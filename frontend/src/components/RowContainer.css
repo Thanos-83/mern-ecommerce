@@ -1,0 +1,6 @@
+.row__container {
+  max-width: var(--main-width);
+  margin: 0 auto;
+  height: 100%;
+  /* outline: 1px solid red; */
+}

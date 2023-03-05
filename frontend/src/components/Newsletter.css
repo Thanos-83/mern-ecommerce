@@ -1,0 +1,80 @@
+.newsletter {
+  position: relative;
+  width: 100%;
+  height: 30vh;
+  background-image: url('../images/blue-jeans-2160265_1280.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: 1;
+}
+
+.newsletter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.newsletter__form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(240, 240, 240, 0.8);
+  text-align: center;
+  width: 50rem;
+  max-width: 90%;
+  padding: 1.4em;
+  border-radius: 5px;
+}
+.newsletter__form > h2 {
+  color: rgb(202, 141, 9);
+  font-weight: 600;
+}
+
+.newsletter__input {
+  margin: 1.5rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newsletter__input input {
+  margin-right: 1em;
+  padding: 1.5em;
+  border: none;
+  width: 50%;
+  outline: 2px solid rgb(207, 205, 205);
+}
+
+.newsletter__input input:focus {
+  outline: 2px solid rgb(202, 141, 9);
+}
+
+.newsletter__btn {
+  padding: 1.2em 2em;
+  border: none;
+  background-color: rgb(68, 67, 67);
+  color: white;
+  font-size: 1em;
+  height: 100%;
+  text-transform: uppercase;
+  transition: background-color 0.4s ease-in-out, color 0.4s ease-in-out;
+}
+
+.newsletter__btn:hover {
+  cursor: pointer;
+  background-color: rgb(202, 141, 9);
+  color: white;
+  outline: none;
+}
+
+.newsletter__form span {
+  color: rgb(202, 141, 9);
+  text-decoration: underline;
+}

@@ -1,0 +1,43 @@
+.dashboard {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  background-color: red;
+  position: relative;
+  grid-template-columns: 215px 2rem repeat(12, 1fr) 2rem;
+  grid-template-rows: 4rem repeat(10, 1fr);
+  grid-template-areas:
+    'nav nav nav nav nav nav nav nav nav nav nav nav nav nav nav '
+    'sidebar main main main main main main main main main main main main main main'
+    'sidebar main main main main main main main main main main main main main main'
+    'sidebar main main main main main main main main main main main main main main'
+    'sidebar main main main main main main main main main main main main main main'
+    'sidebar main main main main main main main main main main main main main main'
+    'sidebar main main main main main main main main main main main main main main'
+    'sidebar main main main main main main main main main main main main main main'
+    'sidebar main main main main main main main main main main main main main main'
+    'sidebar main main main main main main main main main main main main main main'
+    'sidebar main main main main main main main main main main main main main main';
+}
+
+@media screen and (max-width: 728px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+    height: 100vh;
+    background-color: red;
+    grid-template-rows: 4rem repeat(10, 1fr);
+    grid-template-areas:
+      'nav'
+      'main'
+      'main'
+      'main'
+      'main'
+      'main'
+      'main'
+      'main'
+      'main'
+      'main'
+      'main'
+      'main';
+  }
+}

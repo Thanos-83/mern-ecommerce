@@ -1,0 +1,120 @@
+.singleOrder {
+  margin-top: 1.5em;
+}
+
+.singleOrder__details {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  /* background-color: red; */
+}
+
+.singleOrder__top {
+  /* display: flex;
+  flex: 0.7; */
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0 30px;
+
+  border: 1px solid black;
+}
+
+.singleOrder__bottom {
+  /* display: flex;
+  flex: 0.3; */
+  width: 400px;
+  max-width: 80%;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 50px;
+
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+.order__address > h3 {
+  /* background-color: red; */
+  margin-bottom: 0.75em;
+  border-bottom: 1px solid #000;
+}
+
+.order__address > p {
+  margin-top: 0.5em;
+  padding: 0.25em 0.5em;
+}
+
+.order__paymentMethod {
+  margin-top: 1em;
+}
+.order__paymentMethod > h3 {
+  /* background-color: red; */
+  margin-bottom: 0.75em;
+  border-bottom: 1px solid #000;
+}
+
+.order__paymentMethod > p {
+  margin-top: 0.5em;
+  padding: 0.25em 0.5em;
+}
+
+@media screen and (max-width: 768px) {
+  .singleOrder__details {
+    display: block;
+    /* background-color: black; */
+  }
+  .singleOrder__top {
+    margin: 1em;
+  }
+
+  .singleOrder__bottom {
+    width: 400px;
+    max-width: 80%;
+    margin: 1em;
+    height: 40vh;
+  }
+}
+.order__summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  /* background-color: hotpink; */
+  height: 50%;
+  padding: 1em;
+}
+
+.order__items {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+  margin: 1em 0;
+}
+
+.order__itemsInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.75em 0;
+  width: 100%;
+  max-width: 800px;
+  /* background-color: red; */
+  padding: 0.5em;
+}
+.order__itemsInfo img {
+  width: 100%;
+  max-width: 100px;
+  margin-right: 0.1em;
+}
+.order__btns {
+  padding: 1em;
+}
+
+.order__btnNext {
+  width: 95%;
+  margin: 0.75em auto !important;
+}
+.order__btnBack {
+  width: 95%;
+  margin: 0em auto !important;
+}

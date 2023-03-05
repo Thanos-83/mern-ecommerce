@@ -1,0 +1,54 @@
+.subtotal {
+  /* background-color: red; */
+}
+
+.subtotal > h2 {
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.subtotal > h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  background-color: rgb(245, 243, 243);
+  height: 3px;
+  width: 70%;
+}
+
+.subtotal > ul > li {
+  display: flex;
+}
+
+.subtotal li > p {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.subtotal__total {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.subtotal__button {
+  padding: 10px 20px;
+  width: 100%;
+  border: none;
+  background-color: rgb(238, 128, 25);
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  margin-top: 10px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+
+.subtotal__button:hover {
+  /* margin-top: 5px; */
+  outline: 2px solid rgb(238, 128, 25);
+  background-color: #fff;
+  color: rgb(238, 128, 25);
+}

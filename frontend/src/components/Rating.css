@@ -1,0 +1,18 @@
+.rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rating__rate {
+  display: flex;
+  align-items: center;
+  /* margin-right: 10px; */
+  font-size: 0.25rem !important;
+  color: rgb(211, 98, 6);
+}
+
+.rating__reviews {
+  font-size: 0.75rem;
+  font-weight: 500;
+}

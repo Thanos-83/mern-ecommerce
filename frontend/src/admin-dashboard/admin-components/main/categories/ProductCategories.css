@@ -1,0 +1,16 @@
+.productCategories > form {
+  /* display: flex; */
+  /* flex-direction: column; */
+  max-width: 30%;
+}
+
+.productCategories form > .MuiCheckbox-root {
+  display: inline-block;
+}
+
+.productCategories > form button {
+  margin-top: 1.4rem;
+  display: block;
+  padding: 1em 2em;
+  /* width: 100%; */
+}

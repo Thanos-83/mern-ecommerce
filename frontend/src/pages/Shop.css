@@ -1,0 +1,27 @@
+.shop__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 2rem;
+}
+
+.shop__pagination {
+  text-align: right;
+  margin-top: 4rem;
+}
+
+.shop__pagination > nav {
+  margin-right: unset;
+}
+
+.shop__container {
+  display: flex;
+  margin-top: 4rem;
+}
+
+.shop__container .shop__filters {
+  width: 30%;
+}
+
+.shop__container .shop__productsArea {
+  width: 70%;
+}

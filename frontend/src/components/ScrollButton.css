@@ -1,0 +1,25 @@
+.scrollButton {
+  position: fixed;
+  right: 20px;
+  bottom: 30px;
+  z-index: 1222;
+  background-color: #fff;
+  border: 1px solid rgb(105, 104, 104);
+  padding: 0.5em;
+  border-radius: 100%;
+  box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease;
+}
+
+.scrollButton:hover {
+  cursor: pointer;
+  background-color: rgb(202, 141, 9);
+}
+
+.scrollButton:hover > .MuiSvgIcon-root {
+  color: #fff;
+}
+
+.scrollButton > .MuiSvgIcon-root {
+  font-size: 2rem;
+}

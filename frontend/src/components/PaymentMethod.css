@@ -1,0 +1,25 @@
+.payment {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.payment > h3 {
+  margin-top: 2em;
+}
+
+.payment__warning {
+  margin-top: 1em;
+  /* display: none !important; */
+  display: inline-block;
+}
+
+.payment__method {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  min-width: 200px;
+  /* background-color: red; */
+  align-items: flex-start;
+  margin: 1em auto;
+}

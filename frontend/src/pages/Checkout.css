@@ -1,0 +1,45 @@
+.checkout {
+  /* background-color: #dddddd; */
+  /* background: red; */
+  width: 100%;
+  /* padding: 10px 10px; */
+  /* height: 200vh; */
+  /* margin-top: 80px; */
+}
+
+.checkout__stepper {
+  width: 80%;
+  max-width: 50em;
+  margin: 2em auto;
+}
+
+.checkout__info {
+  /* background-color: royalblue; */
+  width: 100%;
+  max-width: 50em;
+  margin-top: -50px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.checkout__btns {
+  display: flex;
+  background-color: lightgray;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.checkout__btnBack {
+  margin: 1em 3em !important;
+  width: 6rem;
+  color: rgb(88, 87, 87) !important;
+  cursor: pointer;
+}
+
+.checkout__btnNext {
+  margin-right: 3em !important;
+  width: 6rem;
+}

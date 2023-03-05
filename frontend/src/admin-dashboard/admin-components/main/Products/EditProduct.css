@@ -1,0 +1,34 @@
+.editProduct__form {
+  padding: 1rem;
+}
+.editProduct__form .editProduct__button {
+  text-align: right;
+}
+
+.editProduct__form .editProduct__button > button {
+  margin-top: 20px;
+  margin-left: auto;
+  padding: 1.25rem 0;
+  font-weight: 600;
+  font-size: 18;
+  width: 100%;
+  max-width: 30rem;
+  text-transform: uppercase;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background-color: rgb(245, 135, 10);
+  cursor: pointer;
+}
+
+.images > img {
+  margin: 1.6em;
+  width: 160px;
+  height: 160px;
+  border: 1px dashed blue;
+  padding: 1em;
+}
+
+.snackbar > .MuiSnackbar-root {
+  width: 499px;
+}
