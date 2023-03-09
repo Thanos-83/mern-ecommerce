@@ -12,6 +12,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import productDashboardRoutes from './routes/dashboardRoutes/productDashboardRoutes.js';
 import categoryRoutes from './routes/dashboardRoutes/categoryRoutes.js';
 import adminOrderRoutes from './routes/dashboardRoutes/adminOrderRoutes.js';
+import adminUserRoutes from './routes/dashboardRoutes/adminUserRoutes.js';
 // ========================================
 
 // initialize the app
@@ -42,6 +43,7 @@ app.get('/api/config/paypal', (req, res) =>
 app.use('/api/dashboard/products', productDashboardRoutes);
 app.use('/api/dashboard/categories', categoryRoutes);
 app.use('/api/dashboard/orders', adminOrderRoutes);
+app.use('/api/dashboard/users', adminUserRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

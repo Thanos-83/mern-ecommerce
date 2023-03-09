@@ -70,6 +70,11 @@ const orderSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    status: {
+      type: String,
+      // required: true,
+      default: 'pending',
+    },
     deliveredAt: {
       type: Date,
     },

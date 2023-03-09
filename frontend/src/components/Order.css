@@ -51,7 +51,7 @@
   padding: 1em;
 }
 
-.order__items {
+.order__details .order__items {
   display: flex;
   align-items: flex-start;
   flex-direction: column;

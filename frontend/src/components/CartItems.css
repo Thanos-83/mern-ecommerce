@@ -56,8 +56,8 @@
 }
 
 .cartItems__itemsContainer {
-  max-height: 260px;
   overflow-y: auto;
+  flex: 1;
 }
 
 .cartItems__btns {

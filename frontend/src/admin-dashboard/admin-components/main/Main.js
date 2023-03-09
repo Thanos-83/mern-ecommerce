@@ -7,6 +7,9 @@ import AddProduct from './Products/AddProduct';
 import EditProduct from './Products/EditProduct';
 import ProductCategories from './categories/ProductCategories';
 import Orders from '../main/orders/Orders';
+import EditOrder from './orders/EditOrder';
+import Users from './users/Users.js';
+import SingleUser from './users/SingleUser.js';
 
 function Main() {
   return (
@@ -24,9 +27,14 @@ function Main() {
         <Route exact path='/dashboard/products/:id/edit'>
           <EditProduct />
         </Route>
-        <Route exact path='/dashboard/orders'>
-          <Orders />
-        </Route>
+        <Route exact path='/dashboard/orders' component={Orders} />
+        <Route
+          exact
+          path='/dashboard/orders/:orderID/edit'
+          component={EditOrder}
+        />
+        <Route exact path='/dashboard/users' component={Users} />
+        <Route exact path='/dashboard/users/:userID' component={SingleUser} />
         <Route path='/dashboard'>
           <DashboardMain />
         </Route>

@@ -121,6 +121,26 @@ function Sidebar({ openSidebar, toggleSidebar }) {
             </Link>
           </label>
         </div>
+
+        <div className='sidebar__item'>
+          <input
+            type='checkbox'
+            name='link1'
+            id='link1'
+            className='sidebar__checkbox'
+            defaultChecked={false}
+          />
+          <label htmlFor='link1' onClick={() => toggleSidebar()}>
+            <DashboardCustomizeIcon color='primary' />
+
+            <Link
+              to='/dashboard/users'
+              className='sidebar__link'
+              onClick={() => toggleSidebar()}>
+              Users
+            </Link>
+          </label>
+        </div>
       </div>
     </div>
   );

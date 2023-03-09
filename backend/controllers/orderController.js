@@ -1,6 +1,6 @@
 import Order from '../models/orderModel.js';
 import asyncHandler from 'express-async-handler';
-
+import User from '../models/userModel.js';
 // @desc    Create order and add it to the DB
 // @route   POST /api/orders
 // @access  Private
@@ -31,6 +31,9 @@ export const createOrder = asyncHandler(async (req, res) => {
     });
 
     const createdOrder = await order.save();
+    const user = await User.findById(req.user._id);
+    user.orders.push(createdOrder._id);
+    user.save();
 
     res.status(201).json(createdOrder);
   }

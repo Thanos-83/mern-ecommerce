@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './Login.css';
 import { login, userLogin } from '../features/user/userLoginSlice.js';
 import { useSelector, useDispatch } from 'react-redux';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
 import { useLocation, useHistory } from 'react-router-dom';
 import RowContainer from '../components/RowContainer';
+import { user_data } from '../random-data/user_random_data.js';
+import { Autocomplete } from '@mui/material';
+import { Box } from '@mui/system';
 function Login() {
   const location = useLocation();
   const history = useHistory();
@@ -49,6 +52,43 @@ function Login() {
 
         <div className='login__container'>
           <h2>login</h2>
+          <div className='login_random_user'>
+            <p>Choose a random user to Login!</p>
+            <Autocomplete
+              id='select-random-user'
+              options={user_data}
+              // open={true}
+              autoHighlight
+              size='small'
+              fullWidth
+              // disableCloseOnSelect
+              getOptionLabel={(option) => option.name || ''}
+              renderOption={(props, option) => (
+                <li {...props}>
+                  <img
+                    loading='lazy'
+                    src={`${option.avatar.toLowerCase()}`}
+                    srcSet={`${option.avatar.toLowerCase()} 2x`}
+                    alt='user avatar'
+                  />
+                  {option.name}
+                </li>
+              )}
+              onChange={(event, value) => {
+                console.log(value);
+                if (value) {
+                  setEmail(value.email);
+                  setPassword(value.password);
+                } else {
+                  setEmail('');
+                  setPassword('');
+                }
+              }}
+              renderInput={(params) => (
+                <TextField {...params} variant='outlined' />
+              )}
+            />
+          </div>
           <form onSubmit={handleLogin} className='login__form'>
             <div className='login__formEmail'>
               <label htmlFor='email'>Email</label>

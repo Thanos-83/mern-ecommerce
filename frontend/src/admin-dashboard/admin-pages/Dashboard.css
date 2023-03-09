@@ -7,7 +7,7 @@
   grid-template-columns: 215px 2rem repeat(12, 1fr) 2rem;
   grid-template-rows: 4rem repeat(10, 1fr);
   grid-template-areas:
-    'nav nav nav nav nav nav nav nav nav nav nav nav nav nav nav '
+    'sidebar nav nav nav nav nav nav nav nav nav nav nav nav nav nav '
     'sidebar main main main main main main main main main main main main main main'
     'sidebar main main main main main main main main main main main main main main'
     'sidebar main main main main main main main main main main main main main main'

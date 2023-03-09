@@ -24,6 +24,12 @@ const userSchema = mongoose.Schema(
     avatar: {
       type: String,
     },
+    orders: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order',
+      },
+    ],
     // reviews:[{
     //   type:mongoose.Schema.Types.ObjectId,
     //   ref:

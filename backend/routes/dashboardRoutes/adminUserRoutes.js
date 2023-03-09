@@ -1,12 +1,12 @@
 import express from 'express';
 import {
-  getAllOrders,
-  editOrder,
-} from '../../controllers/dashboardControllers/adminOrdersController.js';
+  getAllUsers,
+  getSingleUser,
+} from '../../controllers/dashboardControllers/adminUserController.js';
 const Router = express.Router();
 import protectRoutes from '../../middleware/authMiddleware.js';
 import { isAdmin } from '../../middleware/authMiddleware.js';
-Router.get('/', getAllOrders);
-Router.get('/:id/edit', editOrder);
+Router.get('/', getAllUsers);
+Router.get('/:userID', getSingleUser);
 
 export default Router;

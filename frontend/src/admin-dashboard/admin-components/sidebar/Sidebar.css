@@ -21,14 +21,15 @@
 .sidebar {
   grid-area: sidebar;
   background-color: rgb(49, 49, 49);
-  height: calc(100vh - 4rem);
-  /* width: 100%; */
+  /* height: calc(100vh - 4rem); */
+  width: 216px;
   display: flex;
   flex-direction: column;
   z-index: 111;
   position: fixed;
-  top: 4rem;
+  top: 0px;
   left: 0px;
+  bottom: 0px;
 }
 
 .sidebar__title {
@@ -158,13 +159,14 @@
 
 @media screen and (max-width: 728px) {
   .sidebar {
-    position: absolute;
-    top: 4rem;
+    position: fixed;
+    top: 0rem;
     left: -100%;
     min-height: 100%;
     transition: all 0.5s ease-in-out;
     width: 15em;
     max-width: 95%;
+    z-index: 9999;
   }
 
   .fa.fa-times {

@@ -1,0 +1,168 @@
+.singleUser__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  /* flex-wrap: wrap; */
+}
+
+.singleUser__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.singleUser__info-left,
+.singleUser__info-right .singleUser__orders,
+.singleUser__info-right .singleUser__address {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.singleUser__info-left {
+  width: 100%;
+}
+
+.singleUser__info-left hr {
+  margin-block: 1.5rem;
+  margin-inline: 0;
+}
+
+.singleUser__info-left .singleUser__profile-contact {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.singleUser__info-left .singleUser__profile-contact > p:nth-of-type(1) {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.singleUser__info-left .singleUser__profile-contact > p:nth-of-type(2) {
+  color: #0b5be5;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.singleUser__info-left .singleUser__profile-contact > p:nth-of-type(3) {
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.singleUser__info-left .singleUser__activity > * {
+  margin-bottom: 1rem;
+}
+
+.singleUser__info-left .singleUser__activity > * > h3 {
+  color: #212529;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.singleUser__info-left .singleUser__activity > div:nth-of-type(1) > p > a {
+  color: #0b5be5;
+  font-weight: 500;
+}
+
+.singleUser__info-left .singleUser__activity > * > p {
+  color: #6c757d;
+}
+
+.singleUser__info-right {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.singleUser__info-right .singleUser__notes .MuiInputBase-root {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.singleUser__info-right .singleUser__orders-header,
+.singleUser__info-right .singleUser__address-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.singleUser__info-right .singleUser__orders-header > p {
+  color: #6c757d;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.singleUser__info-right .singleUser__orders-list {
+  width: 100%;
+}
+
+.singleUser__info-right .singleUser__orders-list > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: auto;
+  padding: 1rem 0;
+  border-top: 2px solid #dedfe1;
+}
+
+.singleUser__info-right .singleUser__orders-list > div > p {
+  color: #6c757d;
+  text-align: center;
+  min-width: 6rem;
+  font-size: 1rem;
+}
+.singleUser__info-right .singleUser__orders-list .order__id {
+  color: #0b5be5;
+  font-weight: 500;
+}
+
+.singleUser__info-right .singleUser__address-list {
+  border-top: 1px solid #dedfe1;
+  padding: 1rem 0;
+}
+
+.singleUser__info-right .singleUser__address-list > p:nth-of-type(1) {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #484849;
+  margin-bottom: 0.5rem;
+}
+
+.singleUser__info-right .singleUser__address-list > p:nth-of-type(2) {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.singleUser__profile-image {
+  border-radius: 50%;
+  width: 140px;
+  aspect-ratio: 1;
+  border: 1px solid;
+  border-color: lightslategray;
+  overflow: hidden;
+  text-align: center;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 1024px) {
+  .singleUser__info {
+    flex-direction: row;
+  }
+
+  .singleUser__info-left {
+    width: 30%;
+  }
+
+  .singleUser__info-right {
+    width: 70%;
+  }
+}

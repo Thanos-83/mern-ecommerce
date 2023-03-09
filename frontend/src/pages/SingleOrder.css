@@ -83,7 +83,7 @@
   padding: 1em;
 }
 
-.order__items {
+.singleOrder .order__items {
   display: flex;
   align-items: flex-start;
   flex-direction: column;

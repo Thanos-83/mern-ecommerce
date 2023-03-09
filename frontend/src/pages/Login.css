@@ -78,3 +78,30 @@
 .login__formPassword > input:focus {
   border-color: rgb(245, 135, 10);
 }
+
+li.MuiAutocomplete-option {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+
+li.MuiAutocomplete-option img {
+  width: 25px;
+  margin-right: 1rem;
+  aspect-ratio: 1;
+  border: 1px solid lightslategray;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.login_random_user {
+  margin-block: 1rem;
+  width: 75%;
+  /* align-self: flex-start; */
+}
+.login_random_user > p {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: lightslategray;
+  text-align: center;
+}

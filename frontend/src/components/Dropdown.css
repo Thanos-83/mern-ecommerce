@@ -2,8 +2,8 @@
   position: absolute;
   top: 45px;
   right: 15px;
-  min-width: 12rem;
-  max-height: 15rem;
+  min-width: 14rem;
+  /* max-height: 15rem; */
   padding: 0.5em;
   background-color: #ffffff;
   box-shadow: 1px -1px 5px rgba(0, 0, 0, 0.5);
