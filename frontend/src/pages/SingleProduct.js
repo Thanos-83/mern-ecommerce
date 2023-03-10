@@ -9,7 +9,7 @@ import {
 } from '../features/products/productSlice';
 import { createProductReview } from '../features/products/createProductReviewSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { CircularProgress, InputLabel, TextField } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { addToCart, cartProducts } from '../features/cart/cartSlice';
 import { useHistory, useParams } from 'react-router-dom';
@@ -44,7 +44,7 @@ function SingleProduct() {
 
   const [ratingValue, setRatingValue] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  // const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const productInfo = useSelector(productDetails);
   const cartProductsInfo = useSelector(cartProducts);
@@ -143,7 +143,7 @@ function SingleProduct() {
                     }}
                     spaceBetween={10}
                     navigation={true}
-                    thumbs={{ swiper: thumbsSwiper }}
+                    // thumbs={{ swiper: thumbsSwiper }}
                     modules={[FreeMode, Navigation, Thumbs]}
                     className='mySwiper2'>
                     {[...Array(6).values()].map((img) => (

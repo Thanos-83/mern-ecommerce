@@ -28,7 +28,7 @@ function Order({ back, activeStep }) {
   const shippingPrice = netItemsPrice > 100 ? 0 : 100;
   const totalPrice = (netItemsPrice * 1.24 + shippingPrice).toFixed(2);
 
-  const { order, success, error } = orderCreate;
+  const { success, error } = orderCreate;
   const handleCreateOrder = () => {
     const orderDetails = {
       orderItems: cart.cartProducts,

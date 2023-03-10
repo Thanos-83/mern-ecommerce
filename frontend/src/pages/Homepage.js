@@ -12,7 +12,7 @@ import Hero from '../components/Hero';
 import FeaturedCategories from '../components/FeaturedCategories';
 import Newsletter from '../components/Newsletter';
 import ShoppingInfo from '../components/ShoppingInfo';
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 import RowContainer from '../components/RowContainer';
 // import BlogSection from '../components/BlogSection';
 

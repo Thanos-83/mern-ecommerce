@@ -8,12 +8,12 @@ import {
   // ExitToApp,
   // Edit,
 } from '@material-ui/icons';
-import { ChevronRight, FavoriteBorder } from '@material-ui/icons';
-import { Avatar, Badge } from '@material-ui/core';
+import { FavoriteBorder } from '@material-ui/icons';
+import { Badge } from '@material-ui/core';
 import { cartProducts } from '../features/cart/cartSlice';
 import { userLogin } from '../features/user/userLoginSlice.js';
 import { useSelector } from 'react-redux';
-import CartItems from './CartItems';
+// import CartItems from './CartItems';
 import Dropdown from './Dropdown.js';
 import RowContainer from './RowContainer';
 import {

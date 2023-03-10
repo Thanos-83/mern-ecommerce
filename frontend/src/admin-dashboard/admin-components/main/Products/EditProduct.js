@@ -62,7 +62,18 @@ function EditProduct() {
       });
       // console.log(product.image);
     }
-  }, [dispatch, params.id, product._id]);
+  }, [
+    dispatch,
+    params.id,
+    product._id,
+    product.brand,
+    product.category,
+    product.countInStock,
+    product.description,
+    product.image,
+    product.name,
+    product.price,
+  ]);
 
   const editProduct = async (e) => {
     e.preventDefault();

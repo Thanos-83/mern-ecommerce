@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './SingleOrder.css';
 import { getOrderDetails } from '../features/orders/orderDetailsSlice';
-import { payOrder, orderPayReset } from '../features/orders/orderPaySlice.js';
+import { orderPayReset } from '../features/orders/orderPaySlice.js';
 // import { PayPalButton } from 'react-paypal-button-v2';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -51,10 +51,10 @@ function SingleOrder() {
     }
   }, [order, orderId, successPay, dispatch]);
 
-  const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
-    dispatch(payOrder(orderId, paymentResult));
-  };
+  // const successPaymentHandler = (paymentResult) => {
+  //   console.log(paymentResult);
+  //   dispatch(payOrder(orderId, paymentResult));
+  // };
   return (
     <div className='singleOrder'>
       {loading ? (

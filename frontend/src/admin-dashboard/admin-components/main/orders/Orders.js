@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Order from './Order.js';
 import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
 import './Orders.css';

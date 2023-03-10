@@ -8,16 +8,16 @@ import { listProducts } from '../features/products/productsSlice';
 import Pagination from '@mui/material/Pagination';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { PaginationItem, Skeleton } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { useHistory, useLocation, useSearchParams } from 'react-router-dom';
+import { Skeleton } from '@mui/material';
+// import { Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 function Shop({ match }) {
   const history = useHistory();
   const { search } = useLocation();
   const newParams = new URLSearchParams(search);
   const dispatch = useDispatch();
-  const { products, loading, error, pages, page } = useSelector(productsList);
+  const { products, loading, pages } = useSelector(productsList);
 
   const newPage = newParams.get('page');
   //   const pageNumber = match.params.pageNumber || 1;

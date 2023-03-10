@@ -80,7 +80,7 @@ function Users() {
     },
   ];
   const history = useHistory();
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [tableRows, setTableRows] = useState([]);
 
@@ -110,7 +110,7 @@ function Users() {
           })
         );
         // console.log('Data Rows: ', dataRows);
-        setUsers(response.data.users);
+        // setUsers(response.data.users);
         setTableRows(dataRows);
         setLoading(false);
       })

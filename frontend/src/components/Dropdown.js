@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './Dropdown.css';
 import { Link } from 'react-router-dom';
 import { PersonSharp, Settings, ExitToApp, Edit } from '@material-ui/icons';

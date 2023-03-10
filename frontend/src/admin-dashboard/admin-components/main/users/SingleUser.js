@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './SingleUser.css';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 import { Button, TextField } from '@mui/material';
 
 function SingleUser({ match }) {
-  const history = useHistory();
   const [userInfo, setUserInfo] = useState(null);
   useEffect(() => {
     axios
