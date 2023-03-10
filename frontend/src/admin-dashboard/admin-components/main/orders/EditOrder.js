@@ -8,7 +8,8 @@ import './EditOrder.css';
 const label = { inputProps: { 'aria-label': 'Order Paid Checkbox' } };
 
 function EditOrder({ match }) {
-  const SITE_URL = 'http://localhost:3000';
+  // const SITE_URL = 'http://localhost:3000';
+  const SITE_URL = 'https://mern-ecommerce-production-ae47.up.railway.app';
   const [orderInfo, setOrderInfo] = useState(null);
   const [orderStatus, setOrderStatus] = useState('');
   console.log(orderInfo);
