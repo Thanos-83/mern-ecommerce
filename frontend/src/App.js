@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header';
+import Orders from './components/Orders.js';
 import Homepage from './pages/Homepage';
 import SingleProduct from './pages/SingleProduct';
 import ShoppingCart from './pages/ShoppingCart';
@@ -13,11 +14,11 @@ import Footer from './components/Footer';
 import { Switch, Route } from 'react-router-dom';
 // import ScrollButton from './components/ScrollButton';
 import Dashboard from './admin-dashboard/admin-pages/Dashboard';
-import TestUI from './pages/TestUI';
 import Shop from './pages/Shop';
 import CartItems from './components/CartItems';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartProducts, closeCartItemsSidebar } from './features/cart/cartSlice';
+import Success from './pages/Success';
 function App() {
   const dispatch = useDispatch();
   const { active } = useSelector(cartProducts);
@@ -30,10 +31,7 @@ function App() {
           <Route path='/dashboard'>
             <Dashboard />
           </Route>
-          <Route path='/test'>
-            <Header />
-            <TestUI />
-          </Route>
+
           <Route path='/shop*' component={Shop} exact />
           {/* <Route path='/shop' render={(props) => <Shop {...props} />} /> */}
 
@@ -56,6 +54,14 @@ function App() {
             </main>
             <Footer />
           </Route>
+
+          <Route exact path='/success'>
+            <Header />
+            <main>
+              <Success />
+            </main>
+            <Footer />
+          </Route>
           <Route path='/login'>
             <Header />
             <main>
@@ -70,10 +76,17 @@ function App() {
             </main>
             <Footer />
           </Route>
-          <Route path='/profile'>
+          <Route exact path='/account/profile'>
             <Header />
             <main>
               <Profile />
+            </main>
+            <Footer />
+          </Route>
+          <Route exact path='/account/orders'>
+            <Header />
+            <main>
+              <Orders />
             </main>
             <Footer />
           </Route>

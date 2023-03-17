@@ -9,7 +9,7 @@ import {
   // Edit,
 } from '@material-ui/icons';
 import { FavoriteBorder } from '@material-ui/icons';
-import { Badge } from '@material-ui/core';
+import { Avatar, Badge } from '@material-ui/core';
 import { cartProducts } from '../features/cart/cartSlice';
 import { userLogin } from '../features/user/userLoginSlice.js';
 import { useSelector } from 'react-redux';
@@ -57,6 +57,9 @@ function Header({ frontpage }) {
         if (dropdownRef.current !== e.target) {
           setOpenDropdown(false);
         }
+        // if (!dropdownRef.current) {
+        //   setOpenDropdown(false);
+        // }
       });
     }
   }, [openDropdown]);
@@ -66,10 +69,14 @@ function Header({ frontpage }) {
     dispatch(openCartItemsSidebar());
   };
 
-  const toggleDropdown = () => {
-    setOpenDropdown(!openDropdown);
-  };
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
 
+    // console.log(e.target);
+    // console.log(dropdownRef.current);
+    setOpenDropdown(true);
+  };
+  // console.log(userInfo);
   return (
     <header
       className={`header ${show && 'header__backgroundColor'} ${
@@ -85,7 +92,7 @@ function Header({ frontpage }) {
             />
           </Link>
           <nav>
-            <ul>
+            <ul className='space-x-12'>
               <li className='header__navItem'>
                 <Link to='/'>Home</Link>
               </li>
@@ -258,11 +265,17 @@ function Header({ frontpage }) {
           <div className='header__right'>
             {userInfo ? (
               <div className='header__avatar'>
-                {/* <Avatar /> */}
-                <i
-                  class='fas fa-user-circle'
+                <Avatar
+                  src={`${
+                    userInfo?.avatar
+                      ? userInfo?.avatar
+                      : 'https://i.pravatar.cc/300'
+                  }`}
                   ref={dropdownRef}
-                  onClick={toggleDropdown}></i>
+                  onClick={toggleDropdown}
+                  alt={`${userInfo.name}`}
+                />
+
                 <Dropdown openDropdown={openDropdown} userInfo={userInfo} />
               </div>
             ) : (
@@ -278,11 +291,6 @@ function Header({ frontpage }) {
                 className='header__cartIcon'>
                 <ShoppingCartSharp onClick={() => handleOpenCart()} />
               </Badge>
-              {/* {openCart ? (
-                <div className='header__cartItems'>
-                  <CartItems handleClose={handleClose} />
-                </div>
-              ) : null} */}
             </div>
           </div>
         </div>

@@ -102,28 +102,17 @@ function EditProduct() {
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
-    const formData = new FormData();
-    formData.append('image', file);
-    console.log(formData);
-    try {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      };
-
-      const { data } = await axios.post(
-        '/api/dashboard/products/uploads',
-        formData,
-        config
-      );
-      console.log(data);
-      setProductData({ ...productData, image: data });
-    } catch (error) {
-      console.log(error);
-    }
+    previewImage(file);
   };
+
+  const previewImage = (image) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(image);
+    fileReader.onloadend = () => {
+      setProductData({ ...productData, image: fileReader.result });
+    };
+  };
+
   return (
     <div className='editProduct'>
       <div className='snackbar'>
@@ -267,7 +256,8 @@ function EditProduct() {
           <div className='images'>
             <h3>here will be displied all images</h3>
             {productData.image ? (
-              <img src={`/${productData.image}`} alt='' />
+              // <img src={`/${productData.image}`} alt='' />
+              <img src={productData.image} alt='selected' />
             ) : (
               'No files yet'
             )}

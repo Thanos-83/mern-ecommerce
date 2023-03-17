@@ -4,7 +4,6 @@
   align-content: center;
   border-radius: 5px;
   overflow: hidden;
-  /* background-color: rgb(250, 248, 248); */
   background-color: #fff;
   position: relative;
   display: flex;
@@ -178,11 +177,12 @@
   background-color: rgb(48, 48, 48);
   color: #fff;
   border-radius: 4px;
-  padding: 1rem 0rem;
+  padding: 0.25rem 0rem;
   width: 90%;
   outline: none;
   border: none;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 0.85rem;
   opacity: 0;
   transform: scale(0, 0);
   transform-origin: center;

@@ -1,10 +1,24 @@
 // import Product from '../../models/dashboardModels/productDashboardModel.js';
 import Product from '../../models/productModel.js';
+import { v2 as cloudinary } from 'cloudinary';
+// cloudinary.config({
+//   cloud_name: process.env.CLOUDINARY_NAME,
+//   api_key: process.env.CLOUDINARY_API_KEY,
+//   api_secret: process.env.CLOUDINARY_SECRET,
+//   secure: true,
+// });
 
 // @desc    Add product to the DB
 // @route   POST /api/dashboard/products
 // @access  Private
 export const addProduct = async (req, res, next) => {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+    secure: true,
+  });
+  console.log('add product body data: ', req.body);
   const name = req.body.name;
   const category = req.body.category;
   const image = req.body.image;
@@ -13,26 +27,44 @@ export const addProduct = async (req, res, next) => {
   const price = req.body.price;
   const countInStock = req.body.countInStock;
   const user = req.body.user;
-
+  console.log('server image: ', image);
   // console.log(req.file);
-  console.log(`${user}`.magenda);
+  // console.log(`${user}`.magenda);
   console.log('iam in the add product controller...');
-  const productData = {
-    name,
-    brand,
-    description,
-    price,
-    countInStock,
-    category,
-    image,
-    user,
-  };
 
-  const productInfo = new Product(productData);
+  try {
+    const response = await cloudinary.uploader.upload(image, {
+      upload_preset: 'mern-ecommerce',
+    });
 
-  const createdProduct = await productInfo.save();
-  console.log(createdProduct);
-  res.status(201).json(createdProduct.data);
+    const productData = {
+      name,
+      brand,
+      description,
+      price,
+      countInStock,
+      category,
+      image: {
+        secureUrl: response.secure_url,
+        assetId: response.asset_id,
+        publicId: response.public_id,
+      },
+      user,
+    };
+
+    const newProduct = new Product(productData);
+
+    const createdProduct = await newProduct.save();
+    // console.log(createdProduct);
+    res.status(200).json({
+      message: 'All good!',
+      cloudinaryResponse: response,
+      product: createdProduct,
+    });
+  } catch (error) {
+    console.log('cloudinary error: ', error);
+    res.status(400).json({ 'error message': error });
+  }
 };
 
 // @desc    Update single product
@@ -40,6 +72,12 @@ export const addProduct = async (req, res, next) => {
 // @access  Private
 
 export const updateProduct = async (req, res, next) => {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+    secure: true,
+  });
   const {
     name,
     brand,
@@ -52,12 +90,17 @@ export const updateProduct = async (req, res, next) => {
   } = req.body;
 
   const productID = req.params.id;
-  console.log(`${req.body}`.green);
-  console.log(`${productID}`.red);
-  console.log(`${req.body.name}`.green);
+
   const product = await Product.findById(productID);
-  console.log(product);
+
+  if (image.publicId !== product.image.publicId) {
+    const deleteImageResponse = await cloudinary.uploader.destroy(
+      product.image.publicId
+    );
+    console.log('Delete image from cloudinary response: ', deleteImageResponse);
+  }
   if (product) {
+    // console.log(product);
     product.name = name;
     product.brand = brand;
     product.category = category;
@@ -96,6 +139,21 @@ export const deleteProduct = async (req, res, next) => {
   }
 };
 
+// @desc    Fetch all products from the DB
+// @route   GET /api/dashboard/products
+// @access  Private / Admin
+export const getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find({});
+
+    console.log('iam fetching all products for the dashboard....');
+    res.status(200).json({ products });
+  } catch (error) {
+    console.log('Error in fetching products: ', error);
+    res.status(400).json({ messase: error });
+  }
+};
+
 // @desc    GET single product by id and Edit
 // @route   POST /api/dashboard/products/:id
 // @access  Private
@@ -109,5 +167,33 @@ export const getSingleProductById = async (req, res, next) => {
   } else {
     res.status(404);
     throw new Error('Product NOT found');
+  }
+};
+
+// @desc    POST upload image to cloudinary
+// @route   POST /api/dashboard/products/upload
+// @access  Private
+export const uploadImage = async (req, res, next) => {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+    secure: true,
+  });
+  const { image } = req.body;
+  console.log('upload image: ', image);
+  console.log('api_key: ', typeof process.env.CLOUDINARY_API_KEY);
+  try {
+    cloudinary.api.root_folders().then((result) => {
+      console.log('folders: ', result);
+    });
+    const cloudinaryResponse = await cloudinary.uploader.upload(image, {
+      upload_preset: 'mern-ecommerce',
+    });
+    // console.log(cloudinaryResponse);
+    res.status(200).json({ message: 'all good', data: cloudinaryResponse });
+  } catch (error) {
+    console.log('cloudinary error: ', error);
+    res.status(400).json({ 'error message': error });
   }
 };

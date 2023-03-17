@@ -1,6 +1,7 @@
 .row__container {
-  max-width: var(--main-width);
+  max-width: var(--maxWidth);
   margin: 0 auto;
   height: 100%;
+  padding-inline: 2rem;
   /* outline: 1px solid red; */
 }

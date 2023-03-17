@@ -7,7 +7,9 @@ import img4 from '../images/categories/lena-kudryavtseva-K89ybvMmjIc-unsplash.jp
 function FeaturedCategories() {
   return (
     <div className='categories'>
-      <h2>Featured Categories</h2>
+      <h2 className='text-3xl font-semibold text-stone-800'>
+        Featured Categories
+      </h2>
       <div className='categories__grid'>
         <div className='categories__one'>
           <h3>Category one</h3>

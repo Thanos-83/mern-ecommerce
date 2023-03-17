@@ -27,11 +27,8 @@ export const orderSlice = createSlice({
   },
 });
 
-export const {
-  orderCreateRequest,
-  orderCreateSuccess,
-  orderCreateFail,
-} = orderSlice.actions;
+export const { orderCreateRequest, orderCreateSuccess, orderCreateFail } =
+  orderSlice.actions;
 
 // ======= Order Actions - Async logic ========
 

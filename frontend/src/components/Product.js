@@ -20,7 +20,7 @@ function Product({ productInfo }) {
     dispatch(addToCart(payload));
   };
   return (
-    <div className='product'>
+    <div className='product shadow-lg'>
       <div className='product__infoUp'>
         <div className='product__image'>
           <img src={`${productInfo.image}`} alt='product' />

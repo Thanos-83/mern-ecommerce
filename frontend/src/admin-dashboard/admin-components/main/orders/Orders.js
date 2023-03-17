@@ -89,7 +89,7 @@ function Orders() {
       .then((response) => {
         let dataRows = [];
         console.log('order response: ', response);
-        response.data.orders?.map((order) =>
+        response.data.orders.map((order) =>
           dataRows.push({
             id: order._id,
             isPaid: order.isPaid,

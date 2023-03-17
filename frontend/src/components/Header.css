@@ -25,10 +25,9 @@
   justify-content: space-between;
   align-items: center;
   margin: auto;
-  /* max-width: 1240px; */
-  padding: 1rem 2rem;
+  max-width: 1240px;
+  padding: 1rem 0rem;
   height: 100%;
-  /* background-color: #fff; */
 }
 
 .header__logo {
@@ -47,7 +46,7 @@ nav {
 nav > ul {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .header__right {
@@ -75,9 +74,9 @@ nav > ul {
   position: relative;
 }
 
-.fas.fa-user-circle {
+.header__avatar .MuiAvatar-root {
   cursor: pointer;
-  font-size: 2em;
+  /* font-size: 2em; */
 }
 
 /* NAV styling */

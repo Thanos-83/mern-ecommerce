@@ -13,18 +13,17 @@ import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 function AddProduct() {
-  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const createProduct = useSelector((state) => state.createProduct);
-  console.log(createProduct);
+  const [open, setOpen] = useState(false);
 
+  const createProduct = useSelector((state) => state.createProduct);
+
+  console.log('create product: ', createProduct);
   const { categories } = useSelector((state) => state.categoriesList);
-  console.log(categories);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  console.log('User Info: ', userInfo);
 
   const [productData, setProductData] = useState({
     name: '',
@@ -35,12 +34,8 @@ function AddProduct() {
     countInStock: 0,
     image: '',
   });
+
   console.log(productData);
-  useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      // view all products
-    }
-  }, [userInfo]);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -48,23 +43,22 @@ function AddProduct() {
 
   const addProduct = async (e) => {
     e.preventDefault();
-    console.log('product data to add: ', productData);
-    dispatch(addProductToDB({ ...productData, user: userInfo._id }));
-    setProductData({
-      name: '',
-      brand: '',
-      category: '',
-      description: '',
-      price: 0,
-      countInStock: 0,
-      image: '',
-    });
-    setOpen(true);
-  };
 
-  // const handleClick = () => {
-  //   setOpen(true);
-  // };
+    dispatch(addProductToDB({ ...productData, user: userInfo._id }));
+
+    if (createProduct.success) {
+      setProductData({
+        name: '',
+        brand: '',
+        category: '',
+        description: '',
+        price: 0,
+        countInStock: 0,
+        image: '',
+      });
+      setOpen(true);
+    }
+  };
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -76,27 +70,16 @@ function AddProduct() {
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
-    const formData = new FormData();
-    formData.append('image', file);
-    console.log(formData);
-    try {
-      const config = {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      };
+    previewImage(file);
+  };
 
-      const { data } = await axios.post(
-        '/api/dashboard/products/uploads',
-        formData,
-        config
-      );
-      console.log(data);
-      setProductData({ ...productData, image: data });
-    } catch (error) {
-      console.log('Upload image error: ', error);
-    }
+  const previewImage = (image) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(image);
+    fileReader.onloadend = () => {
+      // setImageSelected(fileReader.result);
+      setProductData({ ...productData, image: fileReader.result });
+    };
   };
   return (
     <div className='addProduct'>
@@ -123,7 +106,7 @@ function AddProduct() {
       <div className='addProduct__form'>
         <form
           onSubmit={addProduct}
-          className='register__form'
+          className='addProduct__form'
           encType='multipart/form-data'>
           <InputLabel error={0 ? true : false}>Product Name</InputLabel>
           <TextField
@@ -241,7 +224,8 @@ function AddProduct() {
           <div className='images'>
             <h3>here will be displied all images</h3>
             {productData.image ? (
-              <img src={`/${productData.image}`} alt='' />
+              // <img src={`/${productData.image}`} alt='' />
+              <img src={productData.image} alt='selected' />
             ) : (
               'No files yet'
             )}
@@ -251,7 +235,12 @@ function AddProduct() {
               Delete image
             </div>
           </div>
-          <button type='submit'>Add Product</button>
+          <button
+            // onClick={addProduct}
+            type='submit'
+            className='w-full sm:w-3/4 md:w-1/2 lg:w-1/4 py-2 border border-orange-400 bg-orange-600 rounded text-slate-200 mt-6'>
+            Add Product
+          </button>
         </form>
       </div>
     </div>

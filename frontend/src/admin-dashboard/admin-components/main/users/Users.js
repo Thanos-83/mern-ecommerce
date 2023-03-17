@@ -97,7 +97,7 @@ function Users() {
       .then((response) => {
         let dataRows = [];
         console.log('order response: ', response);
-        response.data?.users.map((user) =>
+        response.data.users.map((user) =>
           dataRows.push({
             id: user._id,
             avatar: user.avatar

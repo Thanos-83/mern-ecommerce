@@ -17,6 +17,8 @@ import RowContainer from '../components/RowContainer';
 import Rating from '@mui/material/Rating';
 import LeaveReview from '../components/LeaveReview';
 import Reviews from '../components/Reviews';
+import Currency from 'react-currency-formatter';
+import moment from 'moment';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -85,7 +87,7 @@ function SingleProduct() {
   };
 
   const { product, error, loading } = productInfo;
-
+  console.log('single product info: ', product);
   const handleSubmitReview = (e) => {
     e.preventDefault();
 
@@ -148,11 +150,7 @@ function SingleProduct() {
                     className='mySwiper2'>
                     {[...Array(6).values()].map((img) => (
                       <SwiperSlide key={img}>
-                        <img
-                          // src='https://via.placeholder.com/500.png'
-                          src={`/${product.image}`}
-                          alt='product gallery'
-                        />
+                        <img src={`${product.image}`} alt='product gallery' />
                       </SwiperSlide>
                     ))}
                   </Swiper>
@@ -172,13 +170,15 @@ function SingleProduct() {
                   </Swiper> */}
                 </div>
               </div>
-              <div className='singleProduct__infoRight'>
-                <h2>{product.name}</h2>
-                <div className='singleProduct__rating'>
+              <div className='singleProduct__infoRight mt-8 md:mt-0 pl-0 md:pl-4'>
+                <h2 className='text-xl lg:text-3xl font-bold text-emerald-900'>
+                  {product.name}
+                </h2>
+                <div className='singleProduct__rating flex-wrap gap-4'>
                   <div className='singleProduct__brand'>
                     <h4>Brand: </h4> <p>Brandname</p>
                   </div>
-                  <div className='singleProduct__brand'>
+                  <div className='singleProduct__brand flex-wrap'>
                     <Rating
                       name='product rating'
                       value={product.rating}
@@ -187,10 +187,10 @@ function SingleProduct() {
                     <p> ( {product.reviews.length} Reviews )</p>
                   </div>
                 </div>
-                <h2 className='singleProduct__price'>
-                  Price: {product.price} <Euro />
+                <h2 className='singleProduct__price text-lg font-semibold'>
+                  Price: <Currency quantity={product.price} currency='EUR' />
                 </h2>
-                <p className='singleProduct__description'>
+                <p className='singleProduct__description '>
                   {product.description}
                 </p>
                 <small>
@@ -225,7 +225,7 @@ function SingleProduct() {
               </div>
             </div>
             <div className='singleProduct__reviews'>
-              <h1>
+              <h1 className='text-2xl xl:text-3xl'>
                 Total Reviews <span>( {product.reviews.length} )</span>
               </h1>
               <div className='singleProduct__reviewsContainer'>

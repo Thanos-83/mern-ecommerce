@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './Products.css';
 import {
-  listProducts,
+  getAllProducts,
   productsList,
 } from '../../../../features/products/productsSlice';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,15 +12,29 @@ import {
   deleteProduct,
   deleteProductReset,
 } from '../../../../features/products/deleteProductSlice';
-
+import axios from 'axios';
 function Products() {
   const dispatch = useDispatch();
-  const { products } = useSelector(productsList);
+  const [products, setProducts] = React.useState([]);
+  const [err, setErr] = React.useState({ msg: '', status: false });
+  const [Loading, setLoading] = React.useState(false);
+  // const { products } = useSelector(productsList);
   // const { success } = useSelector((state) => state.deleteProduct);
   // console.log(products);
 
   useEffect(() => {
-    dispatch(listProducts());
+    setLoading(true);
+    axios
+      .get(`/api/dashboard/products`)
+      .then((response) => {
+        console.log('response fetching products: ', response);
+        setProducts(response.data.products);
+      })
+      .catch((error) => {
+        console.log(error);
+        setErr({ msg: error.message, status: true });
+      });
+    // dispatch(getAllProducts());
   }, [dispatch]);
 
   const handleDeleteProduct = (id) => {
@@ -31,8 +45,14 @@ function Products() {
   };
   return (
     <div className='products'>
+      {err.status && (
+        <h1 className='text-lg text-center bg-rose-600 text-white py-2 mb-4'>
+          {err.msg}
+        </h1>
+      )}
+
       <div className='products__header'>
-        <h2>All Products</h2>
+        <h2 className='text-2xl font-semibold text-cyan-900'>All Products</h2>
         <Button variant='outlined' size='small'>
           <Link to='/dashboard/products/add'>Add Product</Link>
         </Button>

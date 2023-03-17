@@ -47,7 +47,7 @@ function Homepage({ frontpage }) {
       <div className='homepage__newsletter'>
         <Newsletter />
       </div>
-      <div className='homepage__shoppingInfo'>
+      <div className='homepage__shoppingInfo bg-gray-200'>
         <ShoppingInfo />
       </div>
     </div>

@@ -46,26 +46,24 @@ export const addProductToDB = (product) => async (dispatch, getState) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        // 'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
     console.log('iam in create product slice');
-    console.log('create product slice: ', product);
+    console.log('create product slice product info: ', product);
     const response = await axios.post(
       '/api/dashboard/products/add/',
       product,
       config
     );
+
     console.log(response);
     console.log('iam here 2');
     dispatch(createProductSuccess(response.data));
   } catch (error) {
     console.log('iam here 3');
-    const err =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch(createProductFail(err));
+    console.log(error);
   }
 };
 

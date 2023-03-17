@@ -8,6 +8,12 @@ import './Order.css';
 import { createOrder } from '../features/orders/createOrderSlice';
 import { useHistory } from 'react-router-dom';
 import { resetCartItems } from '../features/cart/cartSlice';
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
+
+const stripePromise = loadStripe(
+  'pk_test_51Ml9skL8KgcsO7eRoQ3ZPGYjDFjc0WLBvwJY1ROthOL3FZ0xbEBX73Nby8y5Y44ilGMmARQYtr8fB5KzwSzPQOEV00FMGiKokw'
+);
 
 function Order({ back, activeStep }) {
   const [open, setOpen] = useState(true);
@@ -15,7 +21,7 @@ function Order({ back, activeStep }) {
   const history = useHistory();
   const cart = useSelector((state) => state.cartProducts);
   const orderCreate = useSelector((state) => state.createOrder);
-
+  // console.log('cart: ', cart);
   const numberOfProducts = cart.cartProducts
     .map((item) => item.qty)
     .reduce((acc, curr) => acc + curr, 0);
@@ -29,23 +35,21 @@ function Order({ back, activeStep }) {
   const totalPrice = (netItemsPrice * 1.24 + shippingPrice).toFixed(2);
 
   const { success, error } = orderCreate;
-  const handleCreateOrder = () => {
-    const orderDetails = {
-      orderItems: cart.cartProducts,
-      shippingAddress: cart.shippingAddress,
-      paymentMethod: cart.paymentMethod,
-      itemsPrice: netItemsPrice,
-      shippingPrice: shippingPrice,
-      taxPrice: taxPrice,
-      totalPrice: totalPrice,
-    };
-    if (error) {
-      setOpen(true);
-    } else {
-      dispatch(createOrder(orderDetails));
-      dispatch(resetCartItems());
-      // localStorage.setItem('cartItems', []);
-    }
+  const handleCreateOrder = async () => {
+    const stripe = await stripePromise;
+    const checkoutSession = await axios.post(
+      'http://localhost:3000/api/create-checkout-session',
+      {
+        items: cart.cartProducts,
+        email: 'admin@example.com',
+      }
+    );
+
+    const stripeResponse = await stripe.redirectToCheckout({
+      sessionId: checkoutSession.data.id,
+    });
+
+    console.log(stripeResponse);
   };
 
   useEffect(() => {
@@ -123,6 +127,7 @@ function Order({ back, activeStep }) {
           </div>
           <div className='order__btns'>
             <Button
+              role='link'
               variant='contained'
               color='primary'
               className='order__btnNext'

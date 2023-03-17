@@ -28,8 +28,18 @@ const productSchema = mongoose.Schema(
       required: true,
     },
     image: {
-      type: String,
-      required: true,
+      secureUrl: {
+        type: String,
+        required: true,
+      },
+      assetId: {
+        type: String,
+        // required: true,
+      },
+      publicId: {
+        type: String,
+        // required: true,
+      },
     },
     brand: {
       type: String,

@@ -22,12 +22,7 @@ function Profile() {
   const dispatch = useDispatch();
   const { userDetails } = useSelector(userProfileDetails);
   const { userInfo } = useSelector((state) => state.userLogin);
-  const {
-    // loading: loadingOrders,
-    // error: errorOrders,
-    myOrders,
-  } = useSelector((state) => state.myOrders);
-  console.log(myOrders);
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
@@ -106,38 +101,6 @@ function Profile() {
             </div>
             <button>Update</button>
           </form>
-        </div>
-        <div className='profile__right'>
-          <h2>My Orders</h2>
-          <div className='orders'>
-            {myOrders.map((order) => (
-              <div className='order'>
-                <div className='orders__id'>
-                  <h2>ID</h2>
-                  <p>{order._id}</p>
-                </div>
-                <div className='orders__date'>
-                  <h2>DATE</h2>
-                  <p>{order.createdAt.substring(0, 10)}</p>
-                </div>
-                <div className='orders__price'>
-                  <h2>TOTAL</h2>
-                  <p>{order.totalPrice}</p>
-                </div>
-                <div className='orders__isPaid'>
-                  <h2>PAID</h2>
-                  <p>{order.isPaid ? order.paidAt.substring(0, 10) : 'No'}</p>
-                </div>
-                <div className='orders__isDelivered'>
-                  <h2>DELIVERED</h2>
-                  <p>{order.isDelivered ? order.deliveredAt : 'No'}</p>
-                </div>
-                <div className='orders__details'>
-                  <button>Details</button>
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </RowContainer>

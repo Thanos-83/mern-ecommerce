@@ -12,9 +12,7 @@
 
 .shoppingInfo__container {
   width: 100%;
-  /* max-width: 1240px; */
   min-height: 30vh;
-  background-color: rgb(243, 243, 243);
   display: flex;
   flex-direction: column;
   align-items: flex-start;

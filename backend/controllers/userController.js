@@ -23,12 +23,14 @@ export const authUser = asyncHandler(async (req, res) => {
 
     if (user && matchPassword) {
       const token = generateToken(user._id);
+      console.log('user: ', user);
       res.status(200).json({
         email: user.email,
         _id: user._id,
         name: user.name,
         isAdmin: user.isAdmin,
         token: token,
+        avatar: user.avatar,
       });
     }
   } catch (error) {

@@ -7,6 +7,7 @@ import colors from 'colors';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
+import stripeRoutes from './routes/stripeRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 // ===== Dashboard ========================
 import productDashboardRoutes from './routes/dashboardRoutes/productDashboardRoutes.js';
@@ -18,15 +19,15 @@ import adminUserRoutes from './routes/dashboardRoutes/adminUserRoutes.js';
 // initialize the app
 const app = express();
 
-// app.use(cors());
-
-// accept JSON data from the BODY
-app.use(express.json());
-
 dotenv.config();
+
+// app.use(cors());
 
 // Connect the Dadabase
 connectDB();
+
+// accept JSON data from the BODY
+app.use(express.json());
 
 // we use the static folder /upload
 const __dirname = path.resolve();
@@ -35,6 +36,8 @@ app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use('/api/orders', orderRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/create-checkout-session', stripeRoutes);
+
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );

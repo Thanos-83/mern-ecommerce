@@ -24,7 +24,7 @@ function Dropdown({ userInfo, openDropdown }) {
           Welcome <span>{userInfo.name}</span>
         </p>
       </div>
-      <Link to='/profile' className='dropdown__item'>
+      <Link to='/account/profile' className='dropdown__item'>
         <PersonSharp />
         <p>Profile</p>
       </Link>
@@ -32,9 +32,9 @@ function Dropdown({ userInfo, openDropdown }) {
         <Settings />
         <p>Settings</p>
       </Link>
-      <Link to='/' className='dropdown__item'>
+      <Link to='/account/orders' className='dropdown__item'>
         <Edit />
-        <p>Edit</p>
+        <p>Orders</p>
       </Link>
       <button
         onClick={handleLogout}
