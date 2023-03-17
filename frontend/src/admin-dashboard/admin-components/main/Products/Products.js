@@ -27,11 +27,11 @@ function Products() {
     axios
       .get(`/api/dashboard/products`)
       .then((response) => {
-        console.log('response fetching products: ', response);
+        console.log('response fetching dashboard products: ', response);
         setProducts(response.data.products);
       })
       .catch((error) => {
-        console.log(error);
+        console.log('error fetching dashboard products: ', error);
         setErr({ msg: error.message, status: true });
       });
     // dispatch(getAllProducts());
