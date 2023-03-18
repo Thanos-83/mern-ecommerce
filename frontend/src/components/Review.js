@@ -15,7 +15,7 @@ function Review({ review }) {
           <Rating name='product rating' value={review.rating} readOnly />
           <p>{moment(review.createdAt).format('LL')}</p>
         </div>
-        <p>{review.review}</p>
+        <p>{review.comment}</p>
       </div>
     </div>
   );

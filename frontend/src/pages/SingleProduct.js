@@ -238,7 +238,7 @@ function SingleProduct() {
                   />
                 </div>
                 <div className='singleProduct_displayReviews'>
-                  <Reviews reviews={product.reviews} />
+                  <Reviews reviews={product?.reviews} />
                 </div>
               </div>
             </div>

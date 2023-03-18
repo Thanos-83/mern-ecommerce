@@ -90,33 +90,50 @@ export const updateProduct = async (req, res, next) => {
   } = req.body;
 
   const productID = req.params.id;
+  console.log('product id to update: ', productID);
+  try {
+    const product = await Product.findById(productID);
+    console.log('product to update: ', product);
+    console.log('image to update: ', image.publicId);
+    if (!image.publicId && image.publicId !== product.image.publicId) {
+      const deleteImageResponse = await cloudinary.uploader.destroy(
+        product.image.publicId
+      );
+      console.log(
+        'Delete image from cloudinary response: ',
+        deleteImageResponse
+      );
+    }
 
-  const product = await Product.findById(productID);
+    const response = await cloudinary.uploader.upload(image, {
+      upload_preset: 'mern-ecommerce',
+    });
 
-  if (image.publicId !== product.image.publicId) {
-    const deleteImageResponse = await cloudinary.uploader.destroy(
-      product.image.publicId
-    );
-    console.log('Delete image from cloudinary response: ', deleteImageResponse);
-  }
-  if (product) {
-    // console.log(product);
-    product.name = name;
-    product.brand = brand;
-    product.category = category;
-    product.description = description;
-    product.price = price;
-    product.countInStock = countInStock;
-    product.image = image;
-    product.user = user;
+    if (product) {
+      // console.log(product);
+      product.name = name;
+      product.brand = brand;
+      product.category = category;
+      product.description = description;
+      product.price = price;
+      product.countInStock = countInStock;
+      product.image = {
+        secureUrl: response.secure_url,
+        assetId: response.asset_id,
+        publicId: response.public_id,
+      };
+      product.user = user;
 
-    // console.log(product);
-    const updatedProduct = await product.save();
-    console.log(updatedProduct);
-    res.json(updatedProduct);
-  } else {
-    res.status(404);
-    throw new Error('Product NOT found');
+      console.log('product before saving to db: ', product);
+      const updatedProduct = await product.save();
+      console.log(updatedProduct);
+      res.status(200).json({ message: 'produdct updated', updatedProduct });
+    } else {
+      throw new Error('Product NOT found');
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ 'error message in updating product': error });
   }
 };
 
@@ -125,17 +142,31 @@ export const updateProduct = async (req, res, next) => {
 // @access  Private
 
 export const deleteProduct = async (req, res, next) => {
-  console.log('iam in the delete route...');
-  const product = await Product.findById(req.params.id);
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
+    secure: true,
+  });
+  try {
+    console.log('iam in the delete route...');
+    const product = await Product.findById(req.params.id);
 
-  if (product) {
-    await product.remove();
-    res.json({
-      message: 'Product removed succesfully',
-    });
-  } else {
-    res.status(404);
-    throw new Error('Product NOT found');
+    if (product) {
+      await product.remove();
+      const deleteImageResponse = await cloudinary.uploader.destroy(
+        product.image.publicId
+      );
+      console.log('image deleted from the cloudinary: ', deleteImageResponse);
+      res.status(200).json({
+        message: 'Product removed succesfully',
+      });
+    } else {
+      throw new Error('Product NOT found');
+    }
+  } catch (error) {
+    console.log('error in deleting product: ', error);
+    res.status(404).json({ 'error message': error.message });
   }
 };
 

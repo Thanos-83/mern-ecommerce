@@ -43,7 +43,7 @@ export const {
 export const updateProduct = (productData) => async (dispatch, getState) => {
   try {
     dispatch(editProductRequest());
-
+    console.log('edit product data in edit slice: ', productData);
     const {
       userLogin: { userInfo },
     } = getState();
@@ -56,13 +56,13 @@ export const updateProduct = (productData) => async (dispatch, getState) => {
       },
     };
     console.log(productData);
-    // const product = { ...productData, user: userInfo._id };
+
     const response = await axios.put(
       `/api/dashboard/products/${productData.id}/edit`,
       productData,
       config
     );
-    console.log(response.data);
+    console.log('response in edit product: ', response.data);
     console.log('product updated succesfully . . .');
     dispatch(editProductSuccess(response.data));
   } catch (error) {

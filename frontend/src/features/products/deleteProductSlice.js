@@ -22,7 +22,7 @@ export const deleteProductSlice = createSlice({
       state.error = action.payload;
     },
     deleteProductReset: (state) => {
-      state.loading = false;
+      // state.loading = false;
       state.success = false;
     },
   },

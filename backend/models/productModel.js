@@ -49,16 +49,11 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    // category: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   required: true,
-    //   ref: 'Category',
-    // },
     description: {
       type: String,
       required: true,
     },
-    reviews: [reviewSchema],
+    reviews: { type: [reviewSchema], required: false },
     rating: {
       type: Number,
       required: false,

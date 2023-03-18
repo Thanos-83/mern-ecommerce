@@ -30,7 +30,7 @@ function EditProduct() {
   const { product } = useSelector(productDetails);
   const { userInfo } = useSelector((state) => state.userLogin);
   const { categories } = useSelector((state) => state.categoriesList);
-  console.log(categories);
+  console.log('edit page product categories: ', categories);
 
   const [productData, setProductData] = useState({
     name: '',
@@ -121,7 +121,7 @@ function EditProduct() {
           autoHideDuration={2000}
           onClose={handleClose}
           anchorOrigin={{
-            horizontal: 'right',
+            horizontal: 'left',
             vertical: 'bottom',
           }}>
           <Alert variant='filled' onClose={handleClose} severity='success'>
@@ -255,11 +255,11 @@ function EditProduct() {
           </div>
           <div className='images'>
             <h3>here will be displied all images</h3>
-            {productData.image ? (
+            {productData.image.secureUrl ? (
               // <img src={`/${productData.image}`} alt='' />
-              <img src={productData.image} alt='selected' />
+              <img src={productData.image.secureUrl} alt='selected' />
             ) : (
-              'No files yet'
+              <img src={productData.image} alt='selected' />
             )}
             <div
               onClick={(e) => setProductData({ ...productData, image: '' })}
