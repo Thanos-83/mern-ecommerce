@@ -4,7 +4,7 @@
   width: 100vw;
   background-color: red;
   position: relative;
-  grid-template-columns: 215px 2rem repeat(12, 1fr) 2rem;
+  grid-template-columns: 250px 2rem repeat(12, 1fr) 2rem;
   grid-template-rows: 4rem repeat(10, 1fr);
   grid-template-areas:
     'sidebar nav nav nav nav nav nav nav nav nav nav nav nav nav nav '
@@ -20,7 +20,7 @@
     'sidebar main main main main main main main main main main main main main main';
 }
 
-@media screen and (max-width: 728px) {
+@media screen and (max-width: 768px) {
   .dashboard {
     grid-template-columns: 1fr;
     height: 100vh;

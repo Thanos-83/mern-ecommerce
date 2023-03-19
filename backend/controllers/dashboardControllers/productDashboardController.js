@@ -150,6 +150,7 @@ export const deleteProduct = async (req, res, next) => {
   });
   try {
     console.log('iam in the delete route...');
+    console.log('product ID to delete: ', req.params.id);
     const product = await Product.findById(req.params.id);
 
     if (product) {

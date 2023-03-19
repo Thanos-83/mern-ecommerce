@@ -25,8 +25,8 @@ function Products() {
     {
       field: ' product',
       headerName: 'Product',
-      width: 350,
-      // flex: 1,
+      minWidth: 500,
+      flex: 1,
       // align: 'center',
       // headerAlign: 'center',
       renderCell: (params) => {
@@ -175,9 +175,10 @@ function Products() {
 
   console.log('table rows: ', tableRows);
 
-  const handleDeleteProduct = (id) => {
+  const handleDeleteProduct = (event, rowParams) => {
+    console.log('params: ', rowParams);
     if (window.confirm('Are you sure you want to delete the product?')) {
-      dispatch(deleteProduct(id));
+      dispatch(deleteProduct(rowParams.id));
       dispatch(deleteProductReset());
     }
   };
@@ -231,11 +232,11 @@ function Products() {
             initialState={{
               pagination: {
                 paginationModel: {
-                  pageSize: 20,
+                  pageSize: 10,
                 },
               },
             }}
-            pageSizeOptions={[20]}
+            pageSizeOptions={[10]}
             checkboxSelection
             disableRowSelectionOnClick
             autoHeight={true}

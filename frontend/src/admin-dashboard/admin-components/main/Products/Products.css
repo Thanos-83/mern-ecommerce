@@ -2,6 +2,17 @@
   padding: 1rem;
 }
 
+.products .MuiDataGrid-row {
+  /* padding: 2rem 0; */
+  /* min-height: unset !important;
+  max-height: unset !important; */
+}
+
+.products .MuiDataGrid-cell {
+  /* min-height: unset !important;
+  max-height: unset !important; */
+}
+
 .products__table {
   padding: 1.25rem;
   border-radius: 4px;

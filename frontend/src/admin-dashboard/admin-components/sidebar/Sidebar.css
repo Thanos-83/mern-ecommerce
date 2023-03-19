@@ -22,7 +22,7 @@
   grid-area: sidebar;
   background-color: rgb(49, 49, 49);
   /* height: calc(100vh - 4rem); */
-  width: 216px;
+  width: 250px;
   display: flex;
   flex-direction: column;
   z-index: 111;
@@ -157,7 +157,7 @@
   color: #ffffff;
 }
 
-@media screen and (max-width: 728px) {
+@media screen and (max-width: 768px) {
   .sidebar {
     position: fixed;
     top: 0rem;
