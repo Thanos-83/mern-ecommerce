@@ -55,8 +55,8 @@ function Register() {
             <p>{error}</p>
           </Alert>
         ) : null}
-        <div className='register__container'>
-          <h2>Register</h2>
+        <div className='register__container shadow-md bg-white rounded'>
+          <h1 className='text-3xl font-bold'>Register</h1>
           <form onSubmit={handleRegister} className='register__form'>
             <div className='register__formEmail'>
               <label htmlFor='name'>Name</label>
@@ -103,7 +103,9 @@ function Register() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
-            <button type='submit'>Register</button>
+            <button disabled type='submit'>
+              Register
+            </button>
           </form>
           <div className='login__newUser'>
             Already have an account ? <Link to='/login'>Login</Link>

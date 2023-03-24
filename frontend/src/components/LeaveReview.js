@@ -1,13 +1,37 @@
 import { InputLabel, TextField } from '@material-ui/core';
 import { Rating } from '@mui/material';
-import React from 'react';
+import React, { useState, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { createProductReview } from '../features/products/createProductReviewSlice';
+import { useHistory } from 'react-router-dom';
 
-function LeaveReview({
-  reviewRef,
-  handleSubmitReview,
-  ratingValue,
-  setRatingValue,
-}) {
+function LeaveReview({ params }) {
+  const [ratingValue, setRatingValue] = useState(0);
+  const reviewRef = useRef();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const userDetails = useSelector((state) => state.userLogin);
+  console.log(userDetails);
+
+  const handleSubmitReview = (e) => {
+    e.preventDefault();
+
+    console.log({
+      rating: ratingValue,
+      review: reviewRef.current.value,
+    });
+    if (!userDetails.userInfo) {
+      history.push('/login');
+    }
+    // dispatch(
+    //   createProductReview(params.id, {
+    //     rating: ratingValue,
+    //     review: reviewRef.current.value,
+    //   })
+    // );
+    setRatingValue(0);
+    reviewRef.current.value = '';
+  };
   return (
     <React.Fragment>
       <h2>Add Review</h2>

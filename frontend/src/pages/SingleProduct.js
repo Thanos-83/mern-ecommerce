@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import './SingleProduct.css';
 import { Link } from 'react-router-dom';
 // import Rating from '../components/Rating';
-import { Add, Euro, Favorite, Remove } from '@material-ui/icons';
+import { Add, Favorite, Remove } from '@material-ui/icons';
 import {
   productDetails,
   listProductDetails,
 } from '../features/products/productSlice';
-import { createProductReview } from '../features/products/createProductReviewSlice';
+// import { createProductReview } from '../features/products/createProductReviewSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { CircularProgress } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
@@ -18,7 +18,7 @@ import Rating from '@mui/material/Rating';
 import LeaveReview from '../components/LeaveReview';
 import Reviews from '../components/Reviews';
 import Currency from 'react-currency-formatter';
-import moment from 'moment';
+// import moment from 'moment';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -42,9 +42,7 @@ function SingleProduct() {
   const params = useParams();
   const dispatch = useDispatch();
   const [err, setErr] = useState(false);
-  const reviewRef = useRef();
 
-  const [ratingValue, setRatingValue] = useState(0);
   const [quantity, setQuantity] = useState(1);
   // const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
@@ -88,18 +86,6 @@ function SingleProduct() {
 
   const { product, error, loading } = productInfo;
   console.log('single product info: ', product);
-  const handleSubmitReview = (e) => {
-    e.preventDefault();
-
-    dispatch(
-      createProductReview(params.id, {
-        rating: ratingValue,
-        review: reviewRef.current.value,
-      })
-    );
-    setRatingValue(0);
-    reviewRef.current.value = '';
-  };
 
   const handleIncreaseQuantity = () => {
     setQuantity((prev) => prev - 1);
@@ -150,7 +136,12 @@ function SingleProduct() {
                     className='mySwiper2'>
                     {[...Array(6).values()].map((img) => (
                       <SwiperSlide key={img}>
-                        <img src={`${product.image}`} alt='product gallery' />
+                        <div className=''>
+                          <img
+                            src={`${product?.image?.secureUrl}`}
+                            alt='product gallery'
+                          />
+                        </div>
                       </SwiperSlide>
                     ))}
                   </Swiper>
@@ -170,13 +161,14 @@ function SingleProduct() {
                   </Swiper> */}
                 </div>
               </div>
-              <div className='singleProduct__infoRight mt-8 md:mt-0 pl-0 md:pl-4'>
+              <div className='singleProduct__infoRight mt-8 md:mt-0 pl-0 md:pl-12'>
                 <h2 className='text-xl lg:text-3xl font-bold text-emerald-900'>
                   {product.name}
                 </h2>
                 <div className='singleProduct__rating flex-wrap gap-4'>
                   <div className='singleProduct__brand'>
-                    <h4>Brand: </h4> <p>Brandname</p>
+                    <h4>Brand: </h4>{' '}
+                    <p className='text-md text-emerald-700'>{product?.brand}</p>
                   </div>
                   <div className='singleProduct__brand flex-wrap'>
                     <Rating
@@ -193,10 +185,15 @@ function SingleProduct() {
                 <p className='singleProduct__description '>
                   {product.description}
                 </p>
-                <small>
+                <div className='text-emerald-600 my-2'>
                   Availability:
-                  {product.countInStock > 0 ? ' In Sotck' : ' Out of Stock'}
-                </small>
+                  <span className='ml-3 font-semibold'>
+                    {product.countInStock > 0
+                      ? `In Sotck ( ${product.countInStock} items)`
+                      : ' Out of Stock'}
+                  </span>
+                </div>
+
                 <div className='singleProduct__actions'>
                   <div className='singleProduct__controlQuantity'>
                     <button
@@ -220,7 +217,7 @@ function SingleProduct() {
                     disabled={product.countInStock === 0}>
                     Add to card
                   </button>
-                  <Favorite />
+                  <Favorite className='text-emerald-700 cursor-pointer' />
                 </div>
               </div>
             </div>
@@ -230,12 +227,7 @@ function SingleProduct() {
               </h1>
               <div className='singleProduct__reviewsContainer'>
                 <div className='singleProduct_leaveReview'>
-                  <LeaveReview
-                    reviewRef={reviewRef}
-                    handleSubmitReview={handleSubmitReview}
-                    ratingValue={ratingValue}
-                    setRatingValue={setRatingValue}
-                  />
+                  <LeaveReview params={params} />
                 </div>
                 <div className='singleProduct_displayReviews'>
                   <Reviews reviews={product?.reviews} />

@@ -71,37 +71,7 @@ function Sidebar({ openSidebar, toggleSidebar }) {
             </Link>
           </div>
         </div>
-        <div className='sidebar__item'>
-          <input
-            type='checkbox'
-            name='item2'
-            id='item2'
-            className='sidebar__checkbox'
-            defaultChecked={false}
-            // checked={check}
-            // value='analytics'
-          />
 
-          <label htmlFor='item2'>
-            <InsightsIcon color='primary' />
-            <span> Orders</span>
-            <i className='fas fa-chevron-down'></i>
-          </label>
-          <div className='sidebar__submenu'>
-            <div className='sidebar__link' onClick={() => toggleSidebar()}>
-              <Link to='/dashboard/orders'>View Products</Link>
-            </div>
-            <div className='sidebar__link' onClick={() => toggleSidebar()}>
-              <Link to='/dashboard'>Add Product</Link>
-            </div>
-            <div className='sidebar__link' onClick={() => toggleSidebar()}>
-              <Link to='/dashboard'>Add Category</Link>
-            </div>
-            <div className='sidebar__link' onClick={() => toggleSidebar()}>
-              <Link href='#'>View Categories</Link>
-            </div>
-          </div>
-        </div>
         <div className='sidebar__item'>
           <input
             type='checkbox'

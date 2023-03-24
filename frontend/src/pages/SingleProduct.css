@@ -177,11 +177,9 @@
 .singleProduct__btn {
   border-radius: 4px;
   background-color: unset;
-  padding: 0.85rem;
+  padding: 0.5rem 0;
   margin-top: 2rem;
   width: min(100%, 18rem);
-  /* max-width: 18rem; */
-
   text-transform: uppercase;
   font-size: 1rem;
   font-weight: 500;

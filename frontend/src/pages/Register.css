@@ -8,11 +8,6 @@
   align-items: center;
   padding: 20px;
   margin: 10rem auto;
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -30%); */
-  box-shadow: 2px 3px 10px 1px rgba(0, 0, 0, 0.3);
 }
 
 .register h2 {
@@ -62,15 +57,15 @@
 }
 .register__form > button {
   margin-top: 20px;
-  padding: 1.25rem 0;
+  padding: 0.5rem 0;
   font-weight: 600;
   font-size: 18;
   text-transform: uppercase;
   border-radius: 5px;
   border: none;
   outline: none;
-  background-color: rgb(245, 135, 10);
-  cursor: pointer;
+  background-color: rgb(245, 135, 10, 0.3);
+  cursor: not-allowed;
 }
 
 .login__newUser a {

@@ -7,21 +7,12 @@ import { Avatar, Skeleton } from '@mui/material';
 import './Users.css';
 function Users() {
   const columns = [
-    // {
-    //   field: 'id',
-    //   headerName: 'ID',
-    //   width: 130,
-    //   flex: 1,
-    //   align: 'center',
-    //   headerAlign: 'center',
-    // },
     {
       field: ' avatar',
       headerName: 'User',
-      width: 130,
+      minWidth: 240,
       flex: 1,
-      // align: 'center',
-      // headerAlign: 'center',
+
       renderCell: (params) => {
         return (
           <div className='user__name'>
@@ -33,8 +24,8 @@ function Users() {
     },
     {
       field: 'orders',
-      headerName: 'Orders',
-      width: 130,
+      headerName: '# Orders',
+      minWidth: 80,
       flex: 1,
       align: 'center',
       headerAlign: 'center',
@@ -46,15 +37,15 @@ function Users() {
     {
       field: 'email',
       headerName: 'Email',
-      width: 130,
+      minWidth: 200,
       flex: 1,
-      align: 'center',
-      headerAlign: 'center',
+      align: 'left',
+      headerAlign: 'left',
     },
     {
       field: 'isAdmin',
       headerName: 'Admin',
-      width: 130,
+      minWidth: 80,
       flex: 1,
       align: 'center',
       headerAlign: 'center',
@@ -63,6 +54,7 @@ function Users() {
       field: 'actions',
       headerName: 'Actions',
       sortable: false,
+      minWidth: 80,
       filterable: false,
       align: 'center',
       headerAlign: 'center',
@@ -120,8 +112,10 @@ function Users() {
       });
   }, []);
   return (
-    <div className='orders'>
-      <h1>Users</h1>
+    <div className='w-full max-w-7xl mx-auto'>
+      <div className='pb-4 border-b border-b-slate-300'>
+        <h1 className='text-3xl font-semibold text-zinc-700'>Users</h1>
+      </div>
 
       <div className='orders__table'>
         {loading ? (

@@ -1,6 +1,7 @@
 .orders__table {
   width: 100%;
-  max-width: 1400px;
-  margin-top: 4rem;
+  /* max-width: 1400px; */
+  background: white;
+  margin-top: 2rem;
   /* margin-inline: auto; */
 }

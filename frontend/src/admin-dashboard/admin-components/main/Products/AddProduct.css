@@ -1,7 +1,7 @@
-.addProduct {
+/* .addProduct {
   padding: 1em;
   position: relative;
-}
+} */
 
 .addProduct__form {
   padding: 0 2em;
@@ -66,4 +66,22 @@
 .product__images > .MuiSvgIcon-root {
   font-size: 6rem;
   margin-left: auto;
+}
+
+.addProduct_button > button {
+  margin-top: 20px;
+  margin-left: auto;
+  padding: 0.5rem 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.02rem;
+  width: 100%;
+  max-width: 15rem;
+  text-transform: uppercase;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background-color: rgb(245, 135, 10);
+  cursor: pointer;
+  color: #fff;
 }

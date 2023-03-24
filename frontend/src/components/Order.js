@@ -37,19 +37,21 @@ function Order({ back, activeStep }) {
   const { success, error } = orderCreate;
   const handleCreateOrder = async () => {
     const stripe = await stripePromise;
-    const checkoutSession = await axios.post(
-      'http://localhost:3000/api/create-checkout-session',
-      {
-        items: cart.cartProducts,
-        email: 'admin@example.com',
-      }
-    );
+    const checkoutSession = await axios.post('/api/create-checkout-session', {
+      items: cart.cartProducts,
+      email: 's_sbonias@hotmail.com',
+    });
 
+    console.log('checkout sessio response: ', checkoutSession);
     const stripeResponse = await stripe.redirectToCheckout({
       sessionId: checkoutSession.data.id,
     });
 
-    console.log(stripeResponse);
+    if (stripeResponse.error) {
+      console.log(stripeResponse.error);
+    } else {
+      console.log('Stripe response: ', stripeResponse);
+    }
   };
 
   useEffect(() => {
@@ -89,7 +91,7 @@ function Order({ back, activeStep }) {
                 {cart.cartProducts.map((product, index) => (
                   <div className='order__itemsInfo'>
                     <Link to={`/product/${product.id}`}>
-                      <img src={product.image} alt='' />
+                      <img src={product.image.secureUrl} alt='' />
                     </Link>
                     <Link to={`/product/${product.id}`}>
                       <h3>{product.name}</h3>

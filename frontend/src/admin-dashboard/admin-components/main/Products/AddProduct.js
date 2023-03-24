@@ -82,8 +82,8 @@ function AddProduct() {
     };
   };
   return (
-    <div className='addProduct'>
-      <div className='snackbar'>
+    <div className='addProduct w-full max-w-7xl mx-auto'>
+      <div className='snackbar '>
         <Snackbar
           open={open}
           autoHideDuration={2000}
@@ -97,18 +97,19 @@ function AddProduct() {
           </Alert>
         </Snackbar>
       </div>
-      <div className='addProduct__header'>
-        <h3>ADD NEW PRODUCT</h3>
+      <div className='addProduct__header pb-4 border-b border-b-slate-300'>
+        <h1 className='text-3xl font-semibold text-zinc-700'>
+          Add New Product
+        </h1>
         <Button variant='outlined' size='small'>
           <Link to='/dashboard/products'>Back to Products</Link>
         </Button>
       </div>
-      <div className='addProduct__form'>
-        <form
-          onSubmit={addProduct}
-          className='addProduct__form'
-          encType='multipart/form-data'>
-          <InputLabel error={0 ? true : false}>Product Name</InputLabel>
+      <div className='mt-8 p-6 bg-white'>
+        <form onSubmit={addProduct} encType='multipart/form-data'>
+          <InputLabel error={0 ? true : false} htmlFor='name'>
+            Product Name
+          </InputLabel>
           <TextField
             value={productData.name}
             variant='outlined'
@@ -117,6 +118,7 @@ function AddProduct() {
             shrink='true'
             autoFocus={true}
             size='small'
+            fullWidth
             // label='Required'
             helperText={`${0 ? 'Incorrect entry.' : ''}`}
             error={0 ? true : false}
@@ -124,12 +126,13 @@ function AddProduct() {
               setProductData({ ...productData, name: e.target.value })
             }
           />
-          <InputLabel>Product Category</InputLabel>
+          <InputLabel htmlFor='category'>Product Category</InputLabel>
           <Autocomplete
             options={categories}
             getOptionLabel={(option) => option.name}
             fullWidth='true'
             autoSelect='true'
+            id='category'
             value={productData.category}
             onChange={(event, newValue) => {
               // setValue(newValue);
@@ -152,11 +155,12 @@ function AddProduct() {
             )}
           />
 
-          <InputLabel>Brand</InputLabel>
+          <InputLabel htmlFor='brand'>Brand</InputLabel>
           <TextField
             value={productData.brand}
             required
             id='brand'
+            fullWidth
             // label='Required'
             variant='outlined'
             onChange={(e) =>
@@ -164,13 +168,14 @@ function AddProduct() {
             }
           />
 
-          <InputLabel>Description</InputLabel>
+          <InputLabel htmlFor='description'>Description</InputLabel>
           <TextField
             value={productData.description}
             required
             id='description'
             // label='Required'
             variant='outlined'
+            fullWidth
             multiline={true}
             rows={5}
             onChange={(e) =>
@@ -178,12 +183,13 @@ function AddProduct() {
             }
           />
 
-          <InputLabel>Price</InputLabel>
+          <InputLabel htmlFor='price'>Price</InputLabel>
           <TextField
             value={productData.price}
             required
             error={0 ? true : false}
             id='price'
+            fullWidth
             type='number'
             // label='Required'
             variant='outlined'
@@ -192,13 +198,14 @@ function AddProduct() {
             }
           />
 
-          <InputLabel>Stock Quantity</InputLabel>
+          <InputLabel htmlFor='quantity'>Stock Quantity</InputLabel>
           <TextField
             value={productData.countInStock}
             required
             error={0 ? true : false}
             id='quantity'
             type='number'
+            fullWidth
             // label='Required'
             variant='outlined'
             onChange={(e) =>
@@ -222,25 +229,27 @@ function AddProduct() {
             />
           </div>
           <div className='images'>
-            <h3>here will be displied all images</h3>
             {productData.image ? (
               // <img src={`/${productData.image}`} alt='' />
               <img src={productData.image} alt='selected' />
             ) : (
               'No files yet'
             )}
-            <div
+            <button
+              className='ml-6 cursor-pointer'
+              type='button'
               onClick={(e) => setProductData({ ...productData, image: '' })}
               style={{ cursor: 'pointer' }}>
               Delete image
-            </div>
+            </button>
           </div>
-          <button
-            // onClick={addProduct}
-            type='submit'
-            className='w-full sm:w-3/4 md:w-1/2 lg:w-1/4 py-2 border border-orange-400 bg-orange-600 rounded text-slate-200 mt-6'>
-            Add Product
-          </button>
+          <div className='addProduct_button flex justify-end'>
+            <button
+              // onClick={addProduct}
+              type='submit'>
+              Add Product
+            </button>
+          </div>
         </form>
       </div>
     </div>

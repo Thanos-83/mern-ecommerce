@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2em;
+  padding: 0 1em;
   /* border-bottom: 1px solid lightgray; */
   box-shadow: 10px 1px 10px rgba(0, 0, 0, 0.5);
   position: sticky;
@@ -55,7 +55,7 @@
 
 /* responsive mode  */
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
   .nav_icon {
     display: none;
   }

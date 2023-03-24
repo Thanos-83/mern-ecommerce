@@ -13,11 +13,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -30%); */
-  box-shadow: 1px 1px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
 .login h2 {
@@ -46,7 +41,7 @@
 
 .login__form > button {
   margin-top: auto;
-  padding: 1.25rem 0;
+  padding: 0.5rem 0;
   font-weight: 600;
   font-size: 18;
   text-transform: uppercase;

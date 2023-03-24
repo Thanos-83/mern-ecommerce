@@ -1,8 +1,8 @@
-.editOrder {
+/* .editOrder {
   width: 100%;
   max-width: 1360px;
   margin-inline: auto;
-}
+} */
 
 .editOrder__header {
   display: flex;
@@ -11,7 +11,7 @@
 }
 
 .editOrder__top {
-  margin-block: 1rem;
+  /* margin-block: 1rem; */
 }
 
 .editOrder__top > h1 {

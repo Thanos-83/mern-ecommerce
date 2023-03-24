@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { addToCart } from '../features/cart/cartSlice';
 import { useDispatch } from 'react-redux';
 import { Rating } from '@mui/material';
+import Currency from 'react-currency-formatter';
+
 function Product({ productInfo }) {
   const dispatch = useDispatch();
   const addToCartHandle = () => {
@@ -23,7 +25,7 @@ function Product({ productInfo }) {
     <div className='product shadow-lg'>
       <div className='product__infoUp'>
         <div className='product__image'>
-          <img src={`${productInfo.image}`} alt='product' />
+          <img src={`${productInfo.image.secureUrl}`} alt='product' />
         </div>
         <div className='product__labels'>
           <span className='product__sales'>-25%</span>
@@ -53,10 +55,15 @@ function Product({ productInfo }) {
             <h4>{productInfo.name}</h4>
           </Link>
         </div>
-        <div className='product__priceRating'>
-          <p className='product__price'>$ {productInfo.price}</p>
-          <p className='product__rating'>
+        <div className='space-y-3'>
+          <p className='product__price'>
+            <Currency quantity={productInfo.price} currency='EUR' />
+          </p>
+          <p className='product__rating justify-end flex items-center space-x-1'>
             <Rating name='product rating' value={productInfo.rating} readOnly />
+            <span className='text-sm text-gray-400'>
+              ({productInfo.numReviews})
+            </span>
           </p>
         </div>
       </div>

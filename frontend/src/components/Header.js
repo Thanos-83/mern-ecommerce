@@ -31,7 +31,8 @@ function Header({ frontpage }) {
   const [qty, setQty] = useState(0);
   const [userInfo, setUserInfo] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(false);
-
+  // billing@papaki.com
+  // Θα πρέπει να αναφέρετε τον αριθμό παραγγελίας που επιθυμείτε να εκδοθεί η απόδειξη και τα στοιχεία τιμολόγησης που επιθυμείτε να αλλάξετε. Επίσης για λόγους ασφαλείας θα πρέπει να αποσταλεί από το δηλωμένο email που έχετε στο papaki
   useEffect(() => {
     setQty(products.cartProducts.length);
     setUserInfo(userDetails.userInfo);

@@ -12,32 +12,41 @@ function Card() {
   return (
     <RowContainer>
       <div className='cart'>
-        <h2>Shopping cart component</h2>
         <div className='cart__content'>
-          <div className='cart__contentLeft'>
+          <div className='cart__contentHeader mt-10'>
             {allCartProducts.cartProducts.length === 0 ? (
-              <h2>Your Shopping Cart is empty</h2>
+              <h2 className=' pb-4 border-b-2 border-b-slate-200 text-2xl mb-8'>
+                Your Shopping Cart is empty
+              </h2>
             ) : (
               <>
-                <h2 className='cart__contentTitle'>
+                <h2 className=' pb-4 border-b-2 border-b-slate-200 text-2xl mb-8'>
                   Shopping cart{' '}
                   {`(${allCartProducts.cartProducts.length} items)`}
                 </h2>
-                {allCartProducts.cartProducts.map((product) => (
-                  <CartProduct
-                    img={product?.image}
-                    name={product?.name}
-                    price={product?.price}
-                    id={product?.id}
-                    qty={product.qty}
-                    key={product?.id}
-                  />
-                ))}
               </>
             )}
           </div>
-          <div className='cart__contentRight'>
-            <Subtotal allCartProducts={allCartProducts} />
+          <div className='flex flex-col lg:flex-row items-start gap-4'>
+            {allCartProducts.cartProducts.length > 0 && (
+              <>
+                <div className='w-full lg:w-[70%] space-y-6'>
+                  {allCartProducts.cartProducts.map((product) => (
+                    <CartProduct
+                      img={product?.image}
+                      name={product?.name}
+                      price={product?.price}
+                      id={product?.id}
+                      qty={product.qty}
+                      key={product?.id}
+                    />
+                  ))}
+                </div>
+                <div className=' w-full md:w-1/2 self-end lg:self-start lg:w-[30%] shadow-md bg-white p-4 rounded'>
+                  <Subtotal allCartProducts={allCartProducts} />
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ import {
   // openCartItemsSidebar,
   closeCartItemsSidebar,
 } from '../features/cart/cartSlice';
+import Currency from 'react-currency-formatter';
 function CartItems({ handleClose }) {
   const dispatch = useDispatch();
   const CartProductsInfo = useSelector(cartProducts);
@@ -26,7 +27,7 @@ function CartItems({ handleClose }) {
         </button>
       </div>
       <div className='cartItems__container'>
-        <div className='cartItems__itemsContainer'>
+        <div className='cartItems__itemsContainer '>
           {CartProductsInfo.cartProducts.map((product) => (
             <CartItem
               img={product?.image}
@@ -41,26 +42,49 @@ function CartItems({ handleClose }) {
         <div className='cartItems__btns'>
           <div className='cartItems__totalPriceContainer'>
             <div className='cartItems__subtotal'>
-              <h3>Subtotal</h3>
-              <p>
-                1023.34 <span>Euro</span>
+              <h3 className='text-xl font-semibold'>Subtotal</h3>
+              <p className='text-md text-gray-700'>
+                <Currency
+                  quantity={
+                    CartProductsInfo.cartProducts
+                      .map((product) => product.price * product.qty)
+                      .reduce((x, y) => x + y, 0) / 1.24
+                  }
+                  currency='EUR'
+                />
               </p>
             </div>
             <div className='cartItems__vat'>
-              <h3>Vat 24%</h3>
-              <p>
-                123.34 <span>Euro</span>
+              <h3 className='text-xl font-semibold'>Vat 24%</h3>
+              <p className='text-md text-gray-700'>
+                <Currency
+                  quantity={
+                    CartProductsInfo.cartProducts
+                      .map((product) => product.price * product.qty)
+                      .reduce((x, y) => x + y, 0) -
+                    CartProductsInfo.cartProducts
+                      .map((product) => product.price * product.qty)
+                      .reduce((x, y) => x + y, 0) /
+                      1.24
+                  }
+                  currency='EUR'
+                />
               </p>
             </div>
             <div className='cartItems__total'>
-              <h3>Total</h3>
-              <p>
-                1234.34 <span>Euro</span>
+              <h3 className='text-xl font-semibold'>Total</h3>
+              <p className='text-md text-gray-900'>
+                <Currency
+                  quantity={CartProductsInfo.cartProducts
+                    .map((product) => product.price * product.qty)
+                    .reduce((x, y) => x + y, 0)}
+                  currency='EUR'
+                />
               </p>
             </div>
           </div>
           <Link
-            className='cartItems__btn'
+            className='cartItems__btn text-white'
             to='/cart'
             onClick={() => handleCloseCartItemsSidebar()}>
             Shopping Cart

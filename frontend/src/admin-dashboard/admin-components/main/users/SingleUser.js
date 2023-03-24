@@ -4,7 +4,7 @@ import './SingleUser.css';
 import { Link } from 'react-router-dom';
 import Divider from '@mui/material/Divider';
 import { Button, TextField } from '@mui/material';
-
+import Currency from 'react-currency-formatter';
 function SingleUser({ match }) {
   const [userInfo, setUserInfo] = useState(null);
   useEffect(() => {
@@ -27,14 +27,16 @@ function SingleUser({ match }) {
     new Date(order.createdAt).toLocaleDateString()
   );
   return (
-    <div className='singleUser'>
-      <div className='singleUser__header'>
-        <h1>{userInfo?.name}</h1>
+    <div className='singleUser w-full max-w-7xl mx-auto'>
+      <div className='flex items-center justify-between pb-4 border-b border-b-slate-300'>
+        <h1 className='text-3xl font-semibold text-zinc-700'>
+          {userInfo?.name}
+        </h1>
         <Button variant='outlined' size='small'>
           <Link to='/dashboard/users'>Back to Users</Link>
         </Button>
       </div>
-      <div className='singleUser__info'>
+      <div className='singleUser__info mt-8'>
         <div className='singleUser__info-left'>
           <div className='singleUser__profile'>
             <div className='singleUser__profile-image'>
@@ -77,7 +79,9 @@ function SingleUser({ match }) {
             </div>
             <div>
               <h3>Average Order Value</h3>
-              <p>$574.00</p>
+              <p>
+                <Currency quantity={3454.54} currency='EUR' />{' '}
+              </p>
             </div>
             <div>
               <h3>Registered</h3>
@@ -110,13 +114,13 @@ function SingleUser({ match }) {
             <div className='singleUser__orders-header'>
               <h2>Orders</h2>
               <p>
-                Total spent $
-                {userInfo?.orders
-                  .map((order) => order.totalPrice)
-                  .reduce(
-                    (accum, currentValue) => accum + currentValue,
-                    0
-                  )}{' '}
+                Total spent{' '}
+                <Currency
+                  quantity={userInfo?.orders
+                    .map((order) => order.totalPrice)
+                    .reduce((accum, currentValue) => accum + currentValue, 0)}
+                  currency='EUR'
+                />{' '}
                 on {userInfo?.orders.length} orders
               </p>
             </div>
@@ -135,7 +139,9 @@ function SingleUser({ match }) {
                   <p className='order__items'>
                     {order?.orderItems.length} item(s)
                   </p>
-                  <p className='order__total'>{order?.totalPrice} €</p>
+                  <p className='order__total'>
+                    <Currency quantity={order?.totalPrice} currency='EUR' />
+                  </p>
                 </div>
               ))}
             </div>

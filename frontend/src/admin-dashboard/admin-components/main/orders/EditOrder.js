@@ -27,14 +27,14 @@ function EditOrder({ match }) {
   }, [match.params.orderID]);
   const orderDate = new Date(orderInfo?.createdAt).toLocaleDateString();
   return (
-    <div className='editOrder'>
-      <div className='editOrder__header'>
-        <h1>Edit Order</h1>
+    <div className='editOrder w-full max-w-7xl mx-auto'>
+      <div className='flex items-center justify-between pb-4 border-b border-b-slate-300'>
+        <h1 className='text-3xl '>Edit Order</h1>
         <Button variant='outlined' size='small'>
           <Link to='/dashboard/orders'>Back to Orders</Link>
         </Button>
       </div>
-      <div className='editOrder__content'>
+      <div className='editOrder__content mt-8  p-4 bg-white'>
         <div className='editOrder__top'>
           <h1>
             Order ID: <span> {orderInfo?._id} </span>

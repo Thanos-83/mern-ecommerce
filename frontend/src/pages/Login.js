@@ -32,6 +32,7 @@ function Login() {
     if (!error) {
       setEmail('');
       setPassword('');
+      history.goBack();
     }
   };
 
@@ -50,8 +51,8 @@ function Login() {
           </Alert>
         ) : null}
 
-        <div className='login__container'>
-          <h2>login</h2>
+        <div className='login__container shadow-md bg-white rounded'>
+          <h1 className='text-3xl font-bold'>login</h1>
           <div className='login_random_user'>
             <p>Choose a random user to Login!</p>
             <Autocomplete
@@ -117,8 +118,9 @@ function Login() {
             <button type='submit'>Login</button>
           </form>
           <div className='login__newUser'>
-            New customer ?
+            New customer?
             <Link
+              className='ml-2'
               to={redirect ? `/register?redirect=${redirect}` : '/register'}>
               Register
             </Link>

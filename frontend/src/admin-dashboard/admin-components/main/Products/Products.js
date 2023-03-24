@@ -190,7 +190,7 @@ function Products() {
     setOpen(false);
   };
   return (
-    <div className='products'>
+    <div className='products w-full max-w-7xl mx-auto'>
       {err.status && (
         <h1 className='text-lg text-center bg-rose-600 text-white py-2 mb-4'>
           {err.msg}
@@ -210,8 +210,8 @@ function Products() {
           </Alert>
         </Snackbar>
       </div>
-      <div className='products__header'>
-        <h2 className='text-2xl font-semibold text-cyan-900'>All Products</h2>
+      <div className='products__header pb-4 border-b border-b-slate-300'>
+        <h1 className='text-3xl font-semibold text-zinc-700'>All Products</h1>
         <Button variant='outlined' size='small'>
           <Link to='/dashboard/products/add'>Add Product</Link>
         </Button>

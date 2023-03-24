@@ -4,6 +4,7 @@ import './Review.css';
 import React from 'react';
 import moment from 'moment';
 function Review({ review }) {
+  console.log(review);
   return (
     <div className='review'>
       <div className='review__avatar'>
@@ -15,7 +16,7 @@ function Review({ review }) {
           <Rating name='product rating' value={review.rating} readOnly />
           <p>{moment(review.createdAt).format('LL')}</p>
         </div>
-        <p>{review.comment}</p>
+        <p>{review?.review}</p>
       </div>
     </div>
   );

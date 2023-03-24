@@ -1,6 +1,7 @@
 import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
 // import cors from 'cors';
 import connectDB from './config/db.js';
 import colors from 'colors';
@@ -8,6 +9,7 @@ import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import stripeRoutes from './routes/stripeRoutes.js';
+import stripeWebhookRoutes from './routes/stripeWebhookRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 // ===== Dashboard ========================
 import productDashboardRoutes from './routes/dashboardRoutes/productDashboardRoutes.js';
@@ -26,8 +28,19 @@ dotenv.config();
 // Connect the Dadabase
 connectDB();
 
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+
 // accept JSON data from the BODY
-app.use(express.json());
+app.use((req, res, next) => {
+  if (req.originalUrl.includes('/api/webhook')) {
+    next();
+  } else {
+    // express.json({ limit: '200mb' })(req, res, next);
+    // app.use(express.json());
+    bodyParser.json()(req, res, next);
+  }
+});
 
 // we use the static folder /upload
 const __dirname = path.resolve();
@@ -37,6 +50,7 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/create-checkout-session', stripeRoutes);
+app.use('/api/webhook', stripeWebhookRoutes);
 
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)

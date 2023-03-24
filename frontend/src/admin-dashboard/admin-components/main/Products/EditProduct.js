@@ -19,7 +19,8 @@ import {
 import { getCategories } from '../../../../features/categories/categoriesSlice';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 function EditProduct() {
   const params = useParams();
@@ -114,7 +115,7 @@ function EditProduct() {
   };
 
   return (
-    <div className='editProduct'>
+    <div className='editProduct w-full max-w-7xl mx-auto'>
       <div className='snackbar'>
         <Snackbar
           open={open}
@@ -129,12 +130,14 @@ function EditProduct() {
           </Alert>
         </Snackbar>
       </div>
-      <h3>EDIT PRODUCT</h3>
-      <div className='addProduct__form'>
-        <form
-          onSubmit={editProduct}
-          className='editProduct__form'
-          encType='multipart/form-data'>
+      <div className='flex items-center justify-between pb-4 border-b border-b-slate-300'>
+        <h1 className='text-3xl font-semibold text-zinc-700'>Edit Product</h1>
+        <Button variant='outlined' size='small'>
+          <Link to='/dashboard/products'>Back to Products</Link>
+        </Button>
+      </div>
+      <div className='p-6 bg-white mt-8'>
+        <form onSubmit={editProduct} className='' encType='multipart/form-data'>
           <InputLabel error={0 ? true : false}>Product Name</InputLabel>
           <TextField
             value={productData.name}
@@ -267,8 +270,10 @@ function EditProduct() {
               Delete image
             </div>
           </div>
-          <div className='editProduct__button'>
-            <button type='submit'>Update Product</button>
+          <div className='editProduct__button flex justify-end'>
+            <button className='' type='submit'>
+              Update Product
+            </button>
           </div>
         </form>
       </div>
