@@ -4,19 +4,19 @@ import { buffer } from 'micro';
 // import Buffer from 'buffer';
 import getRowBody from 'raw-body';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-console.log('iam here 5');
-
-const endpointSecret = process.env.WEBHOOK_SIGNING_SECRET;
-
 export const stripeWebhook = asyncHandler(async (req, res) => {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+  console.log('iam here 5');
+
+  const endpointSecret = process.env.WEBHOOK_SIGNING_SECRET;
+
   let event;
   try {
     const sig = req.headers['stripe-signature'];
     console.log('iam here 6');
 
-    // const requestBuffer = await buffer(req);
-    // const payload = requestBuffer.toString();
+    const requestBuffer = await buffer(req);
+    const payload = requestBuffer.toString();
 
     // const requestBuffer = Buffer.from(JSON.stringify(req));
 
@@ -28,8 +28,8 @@ export const stripeWebhook = asyncHandler(async (req, res) => {
 
     event = stripe.webhooks.constructEvent(
       // req.body,
-      // payload,
-      Buffer.from(JSON.parse(req.body)),
+      payload,
+      // Buffer.from(JSON.parse(req.body)),
       sig,
       endpointSecret
     );
@@ -44,17 +44,24 @@ export const stripeWebhook = asyncHandler(async (req, res) => {
   console.log('Event Type here: ', event);
   // Handle the event
   switch (event.type) {
+    case 'payment_intent.created':
+      const paymentIntentCreated = event.data.object;
+      console.log(
+        'PaymentIntentCreated was successful! ',
+        paymentIntentCreated
+      );
+      break;
+    case 'payment_intent.succeeded':
+      const paymentIntent = event.data.object;
+      console.log('PaymentIntent was successful! ', paymentIntent);
+      break;
     case 'checkout.session.completed':
       const session = event.data.object;
       console.log('event session: ', session);
-    case 'payment_intent.succeeded':
-      const paymentIntent = event.data.object;
-      console.log('PaymentIntent was successful!');
-      break;
-    case 'payment_method.attached':
-      const paymentMethod = event.data.object;
-      console.log('PaymentMethod was attached to a Customer!');
-      break;
+    // case 'payment_method.attached':
+    //   const paymentMethod = event.data.object;
+    //   console.log('PaymentMethod was attached to a Customer!');
+    //   break;
     // ... handle other event types
     default:
       console.log(`Unhandled event type ${event.type}`);
