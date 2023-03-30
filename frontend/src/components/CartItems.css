@@ -26,17 +26,6 @@
   transform: translateX(100%);
 }
 
-/* @media screen and (max-width: 500px) {
-  .cartItems {
-    width: 95%;
-  }
-} */
-
-.cartItems > .cartItems__header {
-  margin-bottom: 4rem;
-  padding: 0 1rem;
-}
-
 .cartItems__header {
   display: flex;
   align-items: center;
@@ -53,11 +42,11 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  height: 100%;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .cartItems__itemsContainer {
-  overflow-y: auto;
   flex: 1;
 }
 

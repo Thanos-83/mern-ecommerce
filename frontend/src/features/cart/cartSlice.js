@@ -65,7 +65,7 @@ export const cartSlice = createSlice({
       state.active = false;
     },
     resetCartItems: (state) => {
-      alert('reset cart items clicked');
+      // alert('reset cart items clicked');
       state.cartProducts = [];
       localStorage.setItem('cartItems', []);
     },

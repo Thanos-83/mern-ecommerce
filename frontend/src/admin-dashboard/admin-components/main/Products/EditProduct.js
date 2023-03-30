@@ -84,7 +84,7 @@ function EditProduct() {
         brand: productData.brand,
         category: productData.category,
         description: productData.description,
-        price: productData.price,
+        price: Number.parseFloat(productData.price).toFixed(2),
         image: productData.image,
         countInStock: productData.countInStock,
         id: params.id,
@@ -257,18 +257,18 @@ function EditProduct() {
             />
           </div>
           <div className='images'>
-            <h3>here will be displied all images</h3>
+            {/* <h3>here will be displied all images</h3> */}
             {productData.image.secureUrl ? (
               // <img src={`/${productData.image}`} alt='' />
               <img src={productData.image.secureUrl} alt='selected' />
             ) : (
               <img src={productData.image} alt='selected' />
             )}
-            <div
-              onClick={(e) => setProductData({ ...productData, image: '' })}
-              style={{ cursor: 'pointer' }}>
+            <button
+              className='py-1 px-4 max-w-[15rem] rounded border border-orange-500 text-center text-orange-900'
+              onClick={(e) => setProductData({ ...productData, image: '' })}>
               Delete image
-            </div>
+            </button>
           </div>
           <div className='editProduct__button flex justify-end'>
             <button className='' type='submit'>

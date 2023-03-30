@@ -1,8 +1,17 @@
 import Stripe from 'stripe';
 import asyncHandler from 'express-async-handler';
 import { buffer } from 'micro';
-// import Buffer from 'buffer';
-import getRowBody from 'raw-body';
+import Order from '../models/orderModel.js';
+import User from '../models/userModel.js';
+// import getRowBody from 'raw-body';
+
+// async function buffer(readable) {
+//   const chunks = [];
+//   for await (const chunk of readable) {
+//     chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
+//   }
+//   return Buffer.concat(chunks);
+// }
 
 export const stripeWebhook = asyncHandler(async (req, res) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -20,8 +29,8 @@ export const stripeWebhook = asyncHandler(async (req, res) => {
 
     // const requestBuffer = Buffer.from(JSON.stringify(req));
 
-    console.log('type of req.body: ', typeof req.body);
-    console.log('type of req: ', typeof req);
+    // console.log('type of req.body: ', typeof req.body);
+    // console.log('type of req: ', typeof req);
 
     // const requestBuffer = await getRowBody(req);
     console.log('iam here 7');
@@ -42,31 +51,41 @@ export const stripeWebhook = asyncHandler(async (req, res) => {
   }
 
   console.log('Event Type here: ', event);
-  // Handle the event
-  switch (event.type) {
-    case 'payment_intent.created':
-      const paymentIntentCreated = event.data.object;
-      console.log(
-        'PaymentIntentCreated was successful! ',
-        paymentIntentCreated
-      );
-      break;
-    case 'payment_intent.succeeded':
-      const paymentIntent = event.data.object;
-      console.log('PaymentIntent was successful! ', paymentIntent);
-      break;
-    case 'checkout.session.completed':
-      const session = event.data.object;
-      console.log('event session: ', session);
-    // case 'payment_method.attached':
-    //   const paymentMethod = event.data.object;
-    //   console.log('PaymentMethod was attached to a Customer!');
-    //   break;
-    // ... handle other event types
-    default:
-      console.log(`Unhandled event type ${event.type}`);
-  }
 
-  // Return a response to acknowledge receipt of the event
-  res.json({ msg: 'stripe webhook ok' });
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    console.log('metadata: ', session.metadata);
+    try {
+      const names = JSON.parse(session.metadata.names);
+      const images = JSON.parse(session.metadata.images);
+      const items = JSON.parse(session.metadata.reducedOrderItems);
+      const order = {
+        totalPrice: session.amount_total / 100,
+        orderItems: items.map((item, index) => ({
+          ...item,
+          name: names[index],
+          image: images[index],
+        })),
+        shippingAddress: JSON.parse(session.metadata.shippingAddress),
+        paymentMethod: 'cart',
+        stripeId: session.id,
+        isPaid: session.payment_status === 'paid' && true,
+        paidAt: session.created,
+        user: session.metadata.userId,
+      };
+
+      const newOrder = new Order(order);
+      const createdOrder = await newOrder.save();
+      const user = await User.findById(session.metadata.userId);
+      user.orders.push(createdOrder._id);
+      user.save();
+
+      console.log('created order from webhook: ', createdOrder);
+      // Return a response to acknowledge receipt of the event
+      res.status(200).json({ msg: 'stripe webhook ok', createdOrder });
+    } catch (error) {
+      console.log('webhook error: ', error);
+      res.status(400).json({ 'webhook error': error });
+    }
+  }
 });

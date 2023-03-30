@@ -3,11 +3,9 @@ import Button from '@material-ui/core/Button';
 import Collapse from '@material-ui/core/Collapse';
 import Alert from '@material-ui/lab/Alert';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './Order.css';
-import { createOrder } from '../features/orders/createOrderSlice';
 import { useHistory } from 'react-router-dom';
-import { resetCartItems } from '../features/cart/cartSlice';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from 'axios';
 
@@ -17,11 +15,12 @@ const stripePromise = loadStripe(
 
 function Order({ back, activeStep }) {
   const [open, setOpen] = useState(true);
-  const dispatch = useDispatch();
   const history = useHistory();
   const cart = useSelector((state) => state.cartProducts);
+  const { userInfo } = useSelector((state) => state.userLogin);
   const orderCreate = useSelector((state) => state.createOrder);
-  // console.log('cart: ', cart);
+  console.log('cart: ', cart);
+  console.log('user info: ', userInfo);
   const numberOfProducts = cart.cartProducts
     .map((item) => item.qty)
     .reduce((acc, curr) => acc + curr, 0);
@@ -30,19 +29,24 @@ function Order({ back, activeStep }) {
     0
   );
 
-  const taxPrice = (netItemsPrice * 0.24).toFixed(2);
   const shippingPrice = netItemsPrice > 100 ? 0 : 100;
   const totalPrice = (netItemsPrice * 1.24 + shippingPrice).toFixed(2);
 
   const { success, error } = orderCreate;
   const handleCreateOrder = async () => {
+    if (!userInfo) {
+      alert('please login first');
+      history.push('/login');
+    }
     const stripe = await stripePromise;
     const checkoutSession = await axios.post('/api/create-checkout-session', {
       items: cart.cartProducts,
-      email: 's_sbonias@hotmail.com',
+      email: userInfo.email,
+      userId: userInfo._id,
+      shippingAddress: cart.shippingAddress,
     });
 
-    console.log('checkout sessio response: ', checkoutSession);
+    console.log('checkout session response: ', checkoutSession);
     const stripeResponse = await stripe.redirectToCheckout({
       sessionId: checkoutSession.data.id,
     });

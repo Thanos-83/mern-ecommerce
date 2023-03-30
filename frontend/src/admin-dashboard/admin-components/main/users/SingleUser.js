@@ -152,7 +152,7 @@ function SingleUser({ match }) {
             </div>
             <div className='singleUser__address-list'>
               <p>{userInfo?.name}</p>
-              <p>Random Federation 115302, Moscow ul. Varshavskaya, 15-2-178</p>
+              <p>Random street 125, Athens Greece, PC 12255</p>
             </div>
           </div>
         </div>

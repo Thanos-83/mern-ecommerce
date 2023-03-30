@@ -3,7 +3,6 @@ import './Dashboard.css';
 import Navbar from '../admin-components/navbar/Navbar';
 import Sidebar from '../admin-components/sidebar/Sidebar';
 import Main from '../admin-components/main/Main';
-// import { useHistory } from 'react-router-dom';
 
 function Dashboard() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -11,7 +10,6 @@ function Dashboard() {
   const toggleSidebar = () => {
     setOpenSidebar(!openSidebar);
   };
-
   return (
     <div className='dashboard'>
       <Navbar toggleSidebar={toggleSidebar} />

@@ -6,7 +6,7 @@ import moment from 'moment';
 function CustomerOrder({ order }) {
   console.log(order);
   return (
-    <div className='customerOrder relative border  rounded-md overflow-hidden'>
+    <div className='customerOrder relative border  rounded-md overflow-hidden bg-slate-50'>
       <div className='flex items-center space-x-10 p-5 bg-gray-100 text-sm text-gray-600'>
         <div>
           <p className='font-bold text-xs'>ORDER PLACED</p>
@@ -31,8 +31,8 @@ function CustomerOrder({ order }) {
           {order?.orderItems.map((item) => (
             <div className='aspect-square w-20 h-20 sm:w-32 sm:h-32 '>
               <img
-                src={`http://localhost:3000/${item.image}`}
-                alt={`item.name`}
+                src={item.image}
+                alt={`${item.name}`}
                 className='object-contain aspect-square'
               />
             </div>

@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Checkbox, MenuItem, Select } from '@mui/material';
 import { Link } from 'react-router-dom';
-import EuroSymbolIcon from '@mui/icons-material/EuroSymbol';
+import Currency from 'react-currency-formatter';
+import moment from 'moment';
+
 import './EditOrder.css';
 
 const label = { inputProps: { 'aria-label': 'Order Paid Checkbox' } };
 
 function EditOrder({ match }) {
-  const SITE_URL = 'http://localhost:3000';
-  // const SITE_URL = 'https://mern-ecommerce-production-ae47.up.railway.app';
   const [orderInfo, setOrderInfo] = useState(null);
   const [orderStatus, setOrderStatus] = useState('');
+  const [checked, setChecked] = useState(false);
   console.log(orderInfo);
   const handleChangeStatus = (e) => {
     setOrderStatus(e.target.value);
@@ -21,11 +22,13 @@ function EditOrder({ match }) {
       .get(`/api/dashboard/orders/${match.params.orderID}/edit`)
       .then((res) => {
         setOrderInfo(res.data.order);
+        setChecked(res.data.order.isPaid);
         setOrderStatus(res.data.order.status);
       })
       .catch((error) => console.log(error));
   }, [match.params.orderID]);
   const orderDate = new Date(orderInfo?.createdAt).toLocaleDateString();
+  console.log('is paid: ', typeof orderInfo?.isPaid);
   return (
     <div className='editOrder w-full max-w-7xl mx-auto'>
       <div className='flex items-center justify-between pb-4 border-b border-b-slate-300'>
@@ -48,13 +51,13 @@ function EditOrder({ match }) {
             {orderInfo?.orderItems.map((item) => (
               <li>
                 <div className='editOrder__productImage'>
-                  <img src={`${SITE_URL}/${item.image}`} alt='order item' />
+                  <img src={item.image} alt='order item' />
                 </div>
                 <div className='editOrder__productInfo'>
                   <p>{item.name}</p>
                   <div>
                     <p className='editOrder__productPrice'>
-                      {item.price} <EuroSymbolIcon />
+                      <Currency quantity={item.price} currency='EUR' />
                     </p>
                     <p className='editOrder__productQty'>
                       Qty: <span>{item.qty}</span>
@@ -83,7 +86,13 @@ function EditOrder({ match }) {
 
         <div className='editOrder__paidStatus'>
           <p>Is Order Paid? </p>
-          <Checkbox {...label} defaultChecked={orderInfo?.isPaid} />
+          <Checkbox {...label} checked={checked} color='success' />
+
+          {orderInfo?.isPaid && (
+            <span className='text-sm py-1 px-2 rounded bg-green-700 !text-white'>
+              Order paid at {moment(orderInfo?.createdAt).format('LL')}
+            </span>
+          )}
         </div>
 
         <div className='editOrder__shipping'>
@@ -111,25 +120,49 @@ function EditOrder({ match }) {
             <div className='editOrder__summary-itemsPrice'>
               <p>Item(s) Price:</p>
               <span>
-                {orderInfo?.orderItems
-                  .map((item) => item.price.toFixed(2) * item.qty)
-                  .reduce(
-                    (accumulator, currentValue) => accumulator + currentValue,
-                    0
-                  )}{' '}
-                <EuroSymbolIcon />
+                <Currency
+                  quantity={
+                    orderInfo?.orderItems
+                      .map((item) => item.price.toFixed(2) * item.qty)
+                      .reduce(
+                        (accumulator, currentValue) =>
+                          accumulator + currentValue,
+                        0
+                      ) / 1.24
+                  }
+                  currency='EUR'
+                />
               </span>
             </div>
             <div className='editOrder__summary-taxPrice'>
               <p>Tax Price:</p>
               <span>
-                {orderInfo?.taxPrice} <EuroSymbolIcon />
+                <Currency
+                  quantity={
+                    orderInfo?.orderItems
+                      .map((item) => item.price.toFixed(2) * item.qty)
+                      .reduce(
+                        (accumulator, currentValue) =>
+                          accumulator + currentValue,
+                        0
+                      ) -
+                    orderInfo?.orderItems
+                      .map((item) => item.price.toFixed(2) * item.qty)
+                      .reduce(
+                        (accumulator, currentValue) =>
+                          accumulator + currentValue,
+                        0
+                      ) /
+                      1.24
+                  }
+                  currency='EUR'
+                />
               </span>
             </div>
             <div className='editOrder__summary-totalPrice'>
               <p>Total Price:</p>
               <span>
-                {orderInfo?.totalPrice} <EuroSymbolIcon />
+                <Currency quantity={orderInfo?.totalPrice} currency='EUR' />
               </span>
             </div>
           </div>

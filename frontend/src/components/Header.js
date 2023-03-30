@@ -11,7 +11,7 @@ import {
 import { FavoriteBorder } from '@material-ui/icons';
 import { Avatar, Badge } from '@material-ui/core';
 import { cartProducts } from '../features/cart/cartSlice';
-import { userLogin } from '../features/user/userLoginSlice.js';
+import { userLogin, userLogout } from '../features/user/userLoginSlice.js';
 import { useSelector } from 'react-redux';
 // import CartItems from './CartItems';
 import Dropdown from './Dropdown.js';
@@ -31,12 +31,26 @@ function Header({ frontpage }) {
   const [qty, setQty] = useState(0);
   const [userInfo, setUserInfo] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(false);
-  // billing@papaki.com
-  // Θα πρέπει να αναφέρετε τον αριθμό παραγγελίας που επιθυμείτε να εκδοθεί η απόδειξη και τα στοιχεία τιμολόγησης που επιθυμείτε να αλλάξετε. Επίσης για λόγους ασφαλείας θα πρέπει να αποσταλεί από το δηλωμένο email που έχετε στο papaki
+
   useEffect(() => {
+    console.log('user jwt: ', userDetails.userInfo);
+
+    if (userDetails.userInfo) {
+      const token = userDetails.userInfo.token;
+      const expiredToken = JSON.parse(atob(token.split('.')[1])).exp;
+      const now = Date.now();
+      console.log('expired token 1: ', expiredToken * 1000);
+      console.log('expired token 2: ', now);
+      if (expiredToken * 1000 < now) {
+        dispatch(userLogout());
+      } else {
+        setQty(products.cartProducts.length);
+        setUserInfo(userDetails.userInfo);
+      }
+    }
     setQty(products.cartProducts.length);
-    setUserInfo(userDetails.userInfo);
-  }, [products, userDetails]);
+    // setUserInfo(userDetails.userInfo);
+  }, [products, userDetails, dispatch]);
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -100,164 +114,6 @@ function Header({ frontpage }) {
               <li className='header__navItem'>
                 <Link to='/shop'>Shop</Link>
               </li>
-              {/* <li className='header__navItem'>
-                <Link to='#' onClick={toggleSubmenu}>
-                  Men <ChevronRight />
-                </Link>
-                <ul className='header__megaMenu'>
-                  <ul>
-                    <li>
-                      <Link to='/'> Category 1</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 2</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 3</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 4</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 5</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 6</Link>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <Link to='/'> Category 1</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 2</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 3</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 4</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 5</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 6</Link>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <Link to='/'> Category 1</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 2</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 3</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 4</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 5</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 6</Link>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <Link to='/'> Category 1</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 2</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 3</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 4</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 5</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 6</Link>
-                    </li>
-                  </ul>
-                  <ul>
-                    <li>
-                      <Link to='/'> Category 1</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 2</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 3</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 4</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 5</Link>
-                    </li>
-                    <li>
-                      <Link to='/'> Category 6</Link>
-                    </li>
-                  </ul>
-                </ul>
-              </li>
-              <li className='header__navItem dropdownMenu'>
-                <Link to='/'>
-                  Women <ChevronRight />
-                </Link>
-
-                <ul className='header__submenu'>
-                  <li>
-                    <Link to='/'> Category 1</Link>
-                  </li>
-                  <li>
-                    <Link to='/'> Category 2</Link>
-                  </li>
-                  <li>
-                    <Link to='/'> Category 3</Link>
-                  </li>
-                  <li>
-                    <Link to='/'> Category 4</Link>
-                  </li>
-                  <li>
-                    <Link to='/'> Category 5</Link>
-                  </li>
-                  <li>
-                    <Link to='/'> Category 6</Link>
-                  </li>
-                </ul>
-              </li>
-              <li className='header__navItem dropdownMenu'>
-                <Link to='/'>
-                  Kids <ChevronRight />
-                </Link>
-                <ul className='header__submenu'>
-                  <li>
-                    <Link to='/'> Category 1</Link>
-                  </li>
-                  <li>
-                    <Link to='/'> Category 2</Link>
-                  </li>
-                  <li>
-                    <Link to='/'> Category 3</Link>
-                  </li>
-                  <li>
-                    <Link to='/'> Category 4</Link>
-                  </li>
-                  <li>
-                    <Link to='/'> Category 5</Link>
-                  </li>
-                  <li>
-                    <Link to='/'> Category 6</Link>
-                  </li>
-                </ul>
-              </li> */}
               <li className='header__navItem'>
                 <Link to='/dashboard'>Dashboard</Link>
               </li>

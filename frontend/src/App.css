@@ -31,7 +31,7 @@ img {
   position: relative;
 }
 
-.cartItems__container > .backdrop {
+.cartSidebar__container > .backdrop {
   position: fixed;
   inset: 0;
   display: none;
@@ -39,10 +39,10 @@ img {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-.cartItems__container.open > .backdrop {
+.cartSidebar__container.open > .backdrop {
   display: block;
 }
 
-.cartItems__container.close > .backdrop {
+.cartSidebar__container.close > .backdrop {
   display: none;
 }

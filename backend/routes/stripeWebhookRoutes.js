@@ -5,7 +5,8 @@ const router = express.Router();
 
 import { stripeWebhook } from '../controllers/stripeWebhook.js';
 
-router.post('/', express.raw({ type: 'application/json' }), stripeWebhook);
+router.post('/', stripeWebhook);
+// router.post('/', express.raw({ type: 'application/json' }), stripeWebhook);
 // router.post('/', express.raw({ type: '*/*' }), stripeWebhook);
 
 export default router;

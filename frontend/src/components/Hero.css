@@ -1,18 +1,18 @@
 .hero {
   width: 100%;
-  height: 70vh;
+  height: 50vh;
   margin-top: -10vh;
   background: rgb(207, 249, 250);
   background: linear-gradient(
     0deg,
     rgba(207, 249, 250, 0.3626400389257265) 0%,
-    rgba(45, 54, 253, 1) 100%
+    rgb(78, 79, 106) 100%
   );
 }
 
 .hero__container {
-  /* margin-top: 10em; */
-  /* background-color: rgb(58, 41, 141); */
+  /* margin-top: 10em;*/
+  /* background-color: rgb(58, 41, 141);*/
   padding-top: 5em;
   display: flex;
   align-items: center;

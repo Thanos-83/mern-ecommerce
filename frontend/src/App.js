@@ -19,9 +19,14 @@ import CartItems from './components/CartItems';
 import { useSelector, useDispatch } from 'react-redux';
 import { cartProducts, closeCartItemsSidebar } from './features/cart/cartSlice';
 import Success from './pages/Success';
+import ProtectedRoute from './components/ProtectedRoute';
+import { userLogin } from './features/user/userLoginSlice';
+
 function App() {
   const dispatch = useDispatch();
   const { active } = useSelector(cartProducts);
+  const { userInfo } = useSelector(userLogin);
+
   return (
     // BEM naming convention
     <div className='app'>
@@ -29,17 +34,13 @@ function App() {
         <Switch>
           {/* Dashboard Route */}
           <Route path='/dashboard'>
-            <Dashboard />
+            <ProtectedRoute userLoggedin={userInfo}>
+              <Dashboard />
+            </ProtectedRoute>
           </Route>
 
           <Route path='/shop*' component={Shop} exact />
-          {/* <Route path='/shop' render={(props) => <Shop {...props} />} /> */}
 
-          {/* <Header />
-            <main>
-              <Shop />
-            </main>
-            <Footer /> */}
           <Route path='/cart'>
             <Header />
             <main>
@@ -84,11 +85,13 @@ function App() {
             <Footer />
           </Route>
           <Route exact path='/account/orders'>
-            <Header />
-            <main>
-              <Orders />
-            </main>
-            <Footer />
+            <ProtectedRoute userLoggedin={userInfo}>
+              <Header />
+              <main>
+                <Orders />
+              </main>
+              <Footer />
+            </ProtectedRoute>
           </Route>
           <Route path='/product/:id'>
             <Header />
@@ -123,7 +126,7 @@ function App() {
           <ScrollButton />
         </div> */}
       </React.Fragment>
-      <div className={`cartItems__container ${active ? 'open' : 'close'} `}>
+      <div className={`cartSidebar__container ${active ? 'open' : 'close'} `}>
         <div
           className='backdrop'
           onClick={() => dispatch(closeCartItemsSidebar())}></div>

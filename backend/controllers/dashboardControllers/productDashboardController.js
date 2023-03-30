@@ -94,8 +94,9 @@ export const updateProduct = async (req, res, next) => {
   try {
     const product = await Product.findById(productID);
     console.log('product to update: ', product);
-    console.log('image to update: ', image.publicId);
-    if (!image.publicId && image.publicId !== product.image.publicId) {
+    console.log('image to update: ', image);
+    if (!image.publicId) {
+      // && image.publicId !== product.image.publicId)
       const deleteImageResponse = await cloudinary.uploader.destroy(
         product.image.publicId
       );
@@ -103,11 +104,15 @@ export const updateProduct = async (req, res, next) => {
         'Delete image from cloudinary response: ',
         deleteImageResponse
       );
+      const response = await cloudinary.uploader.upload(image, {
+        upload_preset: 'mern-ecommerce',
+      });
+      image = {
+        secureUrl: response.secure_url,
+        assetId: response.asset_id,
+        publicId: response.public_id,
+      };
     }
-
-    const response = await cloudinary.uploader.upload(image, {
-      upload_preset: 'mern-ecommerce',
-    });
 
     if (product) {
       // console.log(product);
@@ -117,11 +122,7 @@ export const updateProduct = async (req, res, next) => {
       product.description = description;
       product.price = price;
       product.countInStock = countInStock;
-      product.image = {
-        secureUrl: response.secure_url,
-        assetId: response.asset_id,
-        publicId: response.public_id,
-      };
+      product.image = image;
       product.user = user;
 
       console.log('product before saving to db: ', product);

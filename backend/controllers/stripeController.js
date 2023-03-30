@@ -13,12 +13,13 @@ console.log('iam here 6');
 export const createStripeSession = asyncHandler(async (req, res) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-  const { items, email } = req.body;
+  const { items, email, userId, shippingAddress } = req.body;
   console.log('cart items: ', items);
   // console.log(stripe);
   // console.log(process.env.STRIPE_SECRET_KEY);
   let transformedItems = [];
-
+  console.log('shipping address: ', shippingAddress);
+  console.log('shipping address typeof: ', typeof shippingAddress);
   items.forEach((item) => {
     transformedItems.push({
       quantity: item.qty,
@@ -28,7 +29,6 @@ export const createStripeSession = asyncHandler(async (req, res) => {
         product_data: {
           name: item.name,
           images: [item.image.secureUrl],
-          // images: [],
         },
       },
     });
@@ -48,6 +48,17 @@ export const createStripeSession = asyncHandler(async (req, res) => {
       metadata: {
         email,
         images: JSON.stringify(items.map((item) => item.image.secureUrl)),
+        names: JSON.stringify(items.map((item) => item.name)),
+        // qtys: JSON.stringify(items.map((item) => item.qty)),
+        // prices: JSON.stringify(items.map((item) => item.price)),
+        reducedOrderItems: JSON.stringify(
+          items.map((item) => ({
+            price: item.price,
+            qty: item.qty,
+          }))
+        ),
+        userId,
+        shippingAddress: JSON.stringify(shippingAddress),
       },
     })
     .then((result) => {

@@ -23,12 +23,12 @@ function LeaveReview({ params }) {
     if (!userDetails.userInfo) {
       history.push('/login');
     }
-    // dispatch(
-    //   createProductReview(params.id, {
-    //     rating: ratingValue,
-    //     review: reviewRef.current.value,
-    //   })
-    // );
+    dispatch(
+      createProductReview(params.id, {
+        rating: ratingValue,
+        review: reviewRef.current.value,
+      })
+    );
     setRatingValue(0);
     reviewRef.current.value = '';
   };
